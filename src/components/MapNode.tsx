@@ -11,11 +11,13 @@ interface MapNodeProps {
   onClick: () => void;
 }
 
-function createNodeIcon(node: TimelineNode, isSelected: boolean): L.DivIcon {
-  const size = isSelected ? 52 : 44;
+function createNodeIcon(isSelected: boolean): L.DivIcon {
+  const size = isSelected ? 18 : 14;
   const borderColor = isSelected ? "#c9a84c" : "#8b7355";
+  const bgColor = isSelected ? "#c9a84c" : "#5c4a32";
+  const glowSize = isSelected ? 12 : 6;
   const glowColor = isSelected
-    ? "rgba(201, 168, 76, 0.6)"
+    ? "rgba(201, 168, 76, 0.7)"
     : "rgba(201, 168, 76, 0.3)";
 
   return L.divIcon({
@@ -28,21 +30,14 @@ function createNodeIcon(node: TimelineNode, isSelected: boolean): L.DivIcon {
         height: ${size}px;
         border-radius: 50%;
         border: 2px solid ${borderColor};
-        box-shadow: 0 0 ${isSelected ? 16 : 8}px ${glowColor}, inset 0 0 4px rgba(0,0,0,0.5);
-        overflow: hidden;
+        background: ${bgColor};
+        box-shadow: 0 0 ${glowSize}px ${glowColor};
         cursor: pointer;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        background: #1a1a1a;
-        ${isSelected ? "transform: scale(1.1);" : ""}
+        ${isSelected ? "transform: scale(1.2);" : ""}
       " class="node-circle"
-         onmouseenter="this.style.transform='scale(1.15)'; this.style.boxShadow='0 0 20px rgba(201,168,76,0.7), inset 0 0 4px rgba(0,0,0,0.5)';"
-         onmouseleave="this.style.transform='${isSelected ? "scale(1.1)" : "scale(1)"}'; this.style.boxShadow='0 0 ${isSelected ? 16 : 8}px ${glowColor}, inset 0 0 4px rgba(0,0,0,0.5)';">
-        <img
-          src="${node.thumbnail}"
-          alt="${node.title}"
-          style="width: 100%; height: 100%; object-fit: cover;"
-          onerror="this.style.display='none'; this.parentElement.innerHTML += '<div style=\\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:18px;color:#c9a84c;\\'>&#9876;</div>'"
-        />
+         onmouseenter="this.style.transform='scale(1.3)'; this.style.boxShadow='0 0 16px rgba(201,168,76,0.8)';"
+         onmouseleave="this.style.transform='${isSelected ? "scale(1.2)" : "scale(1)"}'; this.style.boxShadow='0 0 ${glowSize}px ${glowColor}';">
       </div>
     `,
   });
@@ -50,7 +45,7 @@ function createNodeIcon(node: TimelineNode, isSelected: boolean): L.DivIcon {
 
 export function MapNode({ node, isSelected, onClick }: MapNodeProps) {
   const position = pixelToLatLng(node.coordinates);
-  const icon = createNodeIcon(node, isSelected);
+  const icon = createNodeIcon(isSelected);
 
   return (
     <Marker
@@ -61,17 +56,12 @@ export function MapNode({ node, isSelected, onClick }: MapNodeProps) {
     >
       <Tooltip
         direction="top"
-        offset={[0, -28]}
+        offset={[0, -12]}
         className="gothic-tooltip"
       >
         <div className="font-cinzel text-sm font-bold text-[#f0e6d2]">
           {node.title}
         </div>
-        {node.subtitle && (
-          <div className="font-spectral text-xs text-[#c9a84c]">
-            {node.subtitle}
-          </div>
-        )}
       </Tooltip>
     </Marker>
   );

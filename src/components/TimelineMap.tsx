@@ -15,7 +15,7 @@ import { ZoomControls } from "./ZoomControls";
 import { useTimeline } from "@/hooks/useTimeline";
 import { useMapControls } from "@/hooks/useMapControls";
 import { SidePanel } from "./SidePanel";
-import { TimelineScrubber } from "./TimelineScrubber";
+import { PartyMarker } from "./PartyMarker";
 import type { Map as LeafletMap } from "leaflet";
 
 function MapRefSetter({
@@ -58,7 +58,6 @@ export function TimelineMap() {
     loading,
     sortedNodes,
     selectedNode,
-    selectedIndex,
     selectNode,
     goToNext,
     goToPrevious,
@@ -98,7 +97,7 @@ export function TimelineMap() {
   const center = L.latLng(MAP_HEIGHT / 2, MAP_WIDTH / 2);
 
   return (
-    <div className="h-screen w-screen relative overflow-hidden">
+    <div className="h-screen w-screen relative overflow-hidden mist-bg">
       <MapContainer
         center={center}
         zoom={-1}
@@ -136,6 +135,8 @@ export function TimelineMap() {
             onClick={() => selectNode(node.id)}
           />
         ))}
+
+        <PartyMarker nodeId="argynvostholt" nodes={sortedNodes} />
       </MapContainer>
 
       <ZoomControls onZoomIn={zoomIn} onZoomOut={zoomOut} />
@@ -149,11 +150,6 @@ export function TimelineMap() {
         hasPrevious={hasPrevious}
       />
 
-      <TimelineScrubber
-        nodes={sortedNodes}
-        selectedNodeId={selectedNode?.id ?? null}
-        onSelectNode={(id) => selectNode(id)}
-      />
     </div>
   );
 }
