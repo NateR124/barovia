@@ -69,7 +69,7 @@ export function TimelineScrubber({
                     ${isSelected ? "text-[#f0e6d2]" : "text-[#8b7355]"}
                   `}
                 >
-                  S{node.sessionNumber}
+                  {node.title.length > 10 ? node.title.slice(0, 10) + "…" : node.title}
                 </span>
               </button>
 

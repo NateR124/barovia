@@ -19,8 +19,10 @@ export function useMapControls() {
     const map = mapRef.current;
     if (!map) return;
     const latLng = pixelToLatLng(coordinates);
-    map.flyTo(latLng, Math.max(map.getZoom(), 0), {
-      duration: 0.8,
+    map.panTo(latLng, {
+      animate: true,
+      duration: 0.5,
+      easeLinearity: 0.4,
     });
   }, []);
 

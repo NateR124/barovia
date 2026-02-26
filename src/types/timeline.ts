@@ -4,9 +4,10 @@ export interface TimelineNode {
   subtitle?: string;
   coordinates: [number, number]; // [x, y] pixel position on the map image
   thumbnail: string;
+  images?: string[];
   summary: string;
   details?: string;
-  sessionNumber: number;
+  sessionNumber?: number;
   tags?: string[];
   date?: string;
 }

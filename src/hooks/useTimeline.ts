@@ -23,7 +23,8 @@ export function useTimeline() {
 
   const sortedNodes = useMemo(() => {
     if (!data) return [];
-    return [...data.nodes].sort((a, b) => a.sessionNumber - b.sessionNumber);
+    // Preserve array order from JSON (the authored order is the timeline order)
+    return [...data.nodes];
   }, [data]);
 
   const selectedNode = useMemo(() => {
