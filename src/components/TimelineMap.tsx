@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   MapContainer,
   ImageOverlay,
@@ -68,6 +68,25 @@ export function TimelineMap() {
 
   const { mapRef, zoomIn, zoomOut, flyToNode } = useMapControls();
 
+  // Precompute sibling offset info for each path (index-based, no reference equality)
+  const pathSiblingInfo = useMemo(() => {
+    if (!data) return [];
+    return data.paths.map((path, i) => {
+      const key = [path.from, path.to].sort().join("--");
+      // Find all paths with the same node pair, tracking their original indices
+      const siblingIndices: number[] = [];
+      data.paths.forEach((p, j) => {
+        if ([p.from, p.to].sort().join("--") === key) {
+          siblingIndices.push(j);
+        }
+      });
+      return {
+        siblingCount: siblingIndices.length,
+        siblingIndex: siblingIndices.indexOf(i),
+      };
+    });
+  }, [data]);
+
   useEffect(() => {
     if (selectedNode) {
       flyToNode(selectedNode.coordinates);
@@ -106,6 +125,9 @@ export function TimelineMap() {
         crs={L.CRS.Simple}
         maxBounds={IMAGE_BOUNDS}
         maxBoundsViscosity={1.0}
+        zoomSnap={0.25}
+        zoomDelta={0.25}
+        wheelPxPerZoomLevel={120}
         zoomControl={false}
         attributionControl={false}
         className="h-full w-full bg-[#1a1a1a]"
@@ -115,7 +137,15 @@ export function TimelineMap() {
         <ImageOverlay url="/images/map/barovia-map.png" bounds={IMAGE_BOUNDS} />
 
         {data.paths.map((path, i) => (
-          <TravelPath key={i} path={path} nodes={data.nodes} />
+          <TravelPath
+            key={i}
+            path={path}
+            nodes={data.nodes}
+            pathIndex={i}
+            totalPaths={data.paths.length}
+            siblingCount={pathSiblingInfo[i]?.siblingCount ?? 1}
+            siblingIndex={pathSiblingInfo[i]?.siblingIndex ?? 0}
+          />
         ))}
 
         {sortedNodes.map((node) => (

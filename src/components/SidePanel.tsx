@@ -70,7 +70,7 @@ export function SidePanel({
             </button>
 
             {/* Scrollable content */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto pt-2">
               {/* Hero image */}
               <div className="relative h-56 w-full bg-[#2c1810] overflow-hidden">
                 <img
@@ -84,55 +84,59 @@ export function SidePanel({
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent" />
               </div>
 
-              {/* Header */}
-              <div className="px-6 -mt-12 relative z-10">
-                <h2 className="font-cinzel text-2xl text-[#f0e6d2] font-bold leading-tight">
-                  {node.title}
-                </h2>
-                <div className="flex items-center gap-3 mt-2 text-sm">
-                  {node.subtitle && (
-                    <span className="text-[#c9a84c] font-spectral">
-                      {node.subtitle}
-                    </span>
-                  )}
-                  {node.date && (
-                    <span className="text-[#8b7355] font-spectral">
-                      {node.date}
-                    </span>
-                  )}
+              {/* Content below hero */}
+              <div style={{ padding: "0 24px 32px 24px" }}>
+                {/* Header */}
+                <div style={{ marginTop: "-48px", position: "relative", zIndex: 10 }}>
+                  <h2 className="font-cinzel text-2xl text-[#f0e6d2] font-bold leading-tight">
+                    {node.title}
+                  </h2>
+                  <div className="flex items-center gap-3 mt-2 text-sm">
+                    {node.subtitle && (
+                      <span className="text-[#c9a84c] font-spectral">
+                        {node.subtitle}
+                      </span>
+                    )}
+                    {node.date && (
+                      <span className="text-[#8b7355] font-spectral">
+                        {node.date}
+                      </span>
+                    )}
+                  </div>
                 </div>
+
+                {/* Tags */}
+                {node.tags && node.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2" style={{ marginTop: "16px" }}>
+                    {node.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 rounded-full
+                                   bg-[#4a0e0e]/60 border border-[#8b0000]/40
+                                   text-[#f0e6d2] text-xs font-spectral capitalize"
+                        style={{ padding: "4px 10px" }}
+                      >
+                        {TAG_ICONS[tag] && <span>{TAG_ICONS[tag]}</span>}
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Summary */}
+                <div style={{ marginTop: "24px" }}>
+                  <p className="text-[#d4c5a9] font-spectral leading-relaxed">
+                    {node.summary}
+                  </p>
+                </div>
+
+                {/* Details (markdown) */}
+                {node.details && (
+                  <div style={{ marginTop: "24px" }} className="prose-gothic">
+                    <ReactMarkdown>{node.details}</ReactMarkdown>
+                  </div>
+                )}
               </div>
-
-              {/* Tags */}
-              {node.tags && node.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 px-6 mt-4">
-                  {node.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full
-                                 bg-[#4a0e0e]/60 border border-[#8b0000]/40
-                                 text-[#f0e6d2] text-xs font-spectral capitalize"
-                    >
-                      {TAG_ICONS[tag] && <span>{TAG_ICONS[tag]}</span>}
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Summary */}
-              <div className="px-6 mt-6">
-                <p className="text-[#d4c5a9] font-spectral leading-relaxed">
-                  {node.summary}
-                </p>
-              </div>
-
-              {/* Details (markdown) */}
-              {node.details && (
-                <div className="px-6 mt-6 pb-6 prose-gothic">
-                  <ReactMarkdown>{node.details}</ReactMarkdown>
-                </div>
-              )}
             </div>
 
             {/* Navigation footer */}
