@@ -1,0 +1,284 @@
+{
+  "campaign": {
+    "name": "Curse of Strahd",
+    "dm": "DM Name",
+    "startDate": "2024-01-15",
+    "party": [
+      { "name": "Character Name", "class": "Fighter", "player": "Player Name" }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "death-house",
+      "title": "Death House",
+      "subtitle": "Sessions 1-2",
+      "coordinates": [1580, 980],
+      "thumbnail": "/images/nodes/death-house.jpg",
+      "summary": "The party arrived in the Village of Barovia, drawn by a mysterious letter. They explored the haunted Death House, uncovering the dark secrets of the Durst family and surviving the horrors within its depths.",
+      "details": "## Death House\n\nA crumbling manor on the outskirts of the Village of Barovia. Rose and Thorn Durst — ghostly children — lured the party inside, begging for help against the \"monster in the basement.\"\n\nThe house itself was a living trap: animated armor, spectral servants, and a cult ritual chamber buried deep below. The party fought their way through and destroyed the shambling mound that served as the cult's failed sacrifice.\n\nAs they escaped, the house itself tried to consume them — walls closing in, poison gas filling the halls. They barely made it out alive.",
+      "sessionNumber": 1,
+      "tags": ["combat", "dungeon", "death"],
+      "date": "2024-01-15"
+    },
+    {
+      "id": "village-of-barovia",
+      "title": "Village of Barovia",
+      "subtitle": "Session 3",
+      "coordinates": [1600, 920],
+      "thumbnail": "/images/nodes/village-of-barovia.jpg",
+      "summary": "The party explored the somber village, met Ismark and Ireena Kolyana, and learned of Strahd's obsession. They agreed to escort Ireena to safety in Vallaki.",
+      "details": "## Village of Barovia\n\nA gloomy settlement under Strahd's shadow. The party visited the Blood of the Vine tavern, met Ismark the Lesser, and visited the burgomaster's mansion where his father lay dead.\n\nThey performed the burial at the village church with Father Donavich, whose son Doru — now a vampire spawn — was locked in the undercroft below.\n\nIreena Kolyana joined the party, hoping to escape Strahd's relentless pursuit.",
+      "sessionNumber": 3,
+      "tags": ["rp", "ally"],
+      "date": "2024-01-29"
+    },
+    {
+      "id": "tser-pool",
+      "title": "Tser Pool (Vistani Camp)",
+      "subtitle": "Session 4",
+      "coordinates": [1350, 680],
+      "thumbnail": "/images/nodes/tser-pool.jpg",
+      "summary": "The party visited the Vistani encampment at Tser Pool and received a fateful Tarokka reading from Madam Eva, revealing the locations of three artifacts and a powerful ally.",
+      "details": "## Tser Pool\n\nThe Vistani camp at Tser Pool was a welcome respite. Madam Eva, the ancient seer, performed the Tarokka card reading that would guide the party's journey through Barovia.\n\nThe reading revealed the locations of the Sunsword, the Holy Symbol of Ravenkind, and the Tome of Strahd — as well as the identity of their fated ally against the vampire lord.",
+      "sessionNumber": 4,
+      "tags": ["rp", "mystery"],
+      "date": "2024-02-05"
+    },
+    {
+      "id": "tser-falls",
+      "title": "Tser Falls",
+      "subtitle": "Session 4",
+      "coordinates": [1250, 600],
+      "thumbnail": "/images/nodes/tser-falls.jpg",
+      "summary": "The party traveled past the towering Tser Falls, crossing the high bridge above the churning river below. A harrowing crossing with breathtaking — and terrifying — views.",
+      "sessionNumber": 4,
+      "tags": ["travel"],
+      "date": "2024-02-05"
+    },
+    {
+      "id": "old-bonegrinder",
+      "title": "Old Bonegrinder",
+      "subtitle": "Session 5",
+      "coordinates": [1050, 680],
+      "thumbnail": "/images/nodes/old-bonegrinder.jpg",
+      "summary": "The old windmill turned out to be the lair of a coven of night hags who were grinding children's bones into dream pastries. A deadly confrontation ensued.",
+      "details": "## Old Bonegrinder\n\nMorgantha and her daughters Bella and Offalia had been selling dream pastries to the desperate villagers — pastries made from the bones of kidnapped children.\n\nThe party discovered their horrific operation and fought the hag coven. The battle was nearly fatal, as the hags' combined magic proved devastating.",
+      "sessionNumber": 5,
+      "tags": ["combat", "boss"],
+      "date": "2024-02-12"
+    },
+    {
+      "id": "vallaki",
+      "title": "Town of Vallaki",
+      "subtitle": "Sessions 6-9",
+      "coordinates": [800, 520],
+      "thumbnail": "/images/nodes/vallaki.jpg",
+      "summary": "The walled town of Vallaki — where the Baron enforced mandatory festivals of happiness. Political intrigue, the Festival of the Blazing Sun, and encounters with Lady Wachter's dark cult.",
+      "details": "## Town of Vallaki\n\nBaron Vallakovich ruled the town with delusional optimism, forcing citizens into weekly festivals. \"All will be well\" was the town's hollow motto.\n\nThe party navigated complex political tensions between the Baron, Lady Fiona Wachter (who secretly worshipped devils), and the various factions within the town walls.\n\nKey events: the Festival of the Blazing Sun, the recovery of the bones of St. Andral, and a tense encounter with Strahd himself at the town gates.",
+      "sessionNumber": 6,
+      "tags": ["rp", "combat", "mystery"],
+      "date": "2024-02-19"
+    },
+    {
+      "id": "lake-zarovich",
+      "title": "Lake Zarovich",
+      "subtitle": "Session 8",
+      "coordinates": [850, 350],
+      "thumbnail": "/images/nodes/lake-zarovich.jpg",
+      "summary": "A misty lake north of Vallaki where the party discovered Bluto, the town drunk, attempting to drown the Vistani girl Arabelle as a sacrifice for better fishing luck.",
+      "sessionNumber": 8,
+      "tags": ["combat", "ally"],
+      "date": "2024-03-04"
+    },
+    {
+      "id": "wizard-of-wines",
+      "title": "Wizard of Wines Winery",
+      "subtitle": "Sessions 10-11",
+      "coordinates": [580, 780],
+      "thumbnail": "/images/nodes/wizard-of-wines.jpg",
+      "summary": "The Martikov family's winery had been overrun by druids and blights. The party cleared the infestation and learned that the magic gems powering the vineyard had been stolen.",
+      "details": "## Wizard of Wines\n\nThe Martikovs — secretly wereravens of the Keepers of the Feather — asked for help reclaiming their winery from the Forest Folk.\n\nDruids from Yester Hill had sent wave after wave of twig blights to overwhelm the winery. The party fought through the infestation and discovered that the druids had stolen the enchanted gems that made the wine magical.",
+      "sessionNumber": 10,
+      "tags": ["combat", "ally", "dungeon"],
+      "date": "2024-03-18"
+    },
+    {
+      "id": "yester-hill",
+      "title": "Yester Hill",
+      "subtitle": "Session 12",
+      "coordinates": [500, 920],
+      "thumbnail": "/images/nodes/yester-hill.jpg",
+      "summary": "A sacred hill where the Forest Folk performed dark rituals. The party disrupted the druids' attempt to bring a massive tree blight to life using one of the stolen winery gems.",
+      "sessionNumber": 12,
+      "tags": ["combat", "boss"],
+      "date": "2024-04-01"
+    },
+    {
+      "id": "krezk",
+      "title": "Village of Krezk",
+      "subtitle": "Session 13",
+      "coordinates": [350, 460],
+      "thumbnail": "/images/nodes/krezk.jpg",
+      "summary": "A walled village at the base of the mountains, ruled by the reclusive Burgomaster Krezkov. The party visited the Shrine of the White Sun, where a mysterious pool reflected visions.",
+      "sessionNumber": 13,
+      "tags": ["rp", "mystery"],
+      "date": "2024-04-08"
+    },
+    {
+      "id": "abbey-of-st-markovia",
+      "title": "Abbey of Saint Markovia",
+      "subtitle": "Sessions 13-14",
+      "coordinates": [320, 380],
+      "thumbnail": "/images/nodes/abbey-of-st-markovia.jpg",
+      "summary": "High above Krezk, the Abbey was run by the Abbot — a deva gone mad. He was constructing a flesh golem bride for Strahd, believing it would end the curse.",
+      "details": "## Abbey of Saint Markovia\n\nThe Abbot, once a celestial being of pure good, had been corrupted by centuries in Barovia. His solution to the curse: create a perfect bride for Strahd from stolen body parts.\n\nThe mongrelfolk — tragic victims of the Abbot's failed experiments — filled the abbey's wings. The party had to decide what to do about the Abbot's mad plan.",
+      "sessionNumber": 13,
+      "tags": ["rp", "mystery", "boss"],
+      "date": "2024-04-08"
+    },
+    {
+      "id": "argynvostholt",
+      "title": "Argynvostholt",
+      "subtitle": "Sessions 15-16",
+      "coordinates": [900, 1000],
+      "thumbnail": "/images/nodes/argynvostholt.jpg",
+      "summary": "The ruined manor of the Order of the Silver Dragon. The party encountered the revenants of fallen knights and sought the beacon that could restore hope to the land.",
+      "details": "## Argynvostholt\n\nOnce home to the silver dragon Argynvost and his order of knights, this manor now lay in ruins. The revenants of the fallen knights still patrolled the halls, bound by their oath.\n\nCommander Vladimir Horngaard, consumed by hatred for Strahd, refused to let anyone defeat the vampire — preferring that Strahd suffer eternally in his prison of Barovia.\n\nThe party searched for the skull of Argynvost, whose return could light the beacon and bring hope.",
+      "sessionNumber": 15,
+      "tags": ["dungeon", "combat", "rp"],
+      "date": "2024-04-22"
+    },
+    {
+      "id": "berez",
+      "title": "Ruins of Berez",
+      "subtitle": "Session 17",
+      "coordinates": [1050, 1100],
+      "thumbnail": "/images/nodes/berez.jpg",
+      "summary": "A sunken, swampy ruin that was once a thriving village. Baba Lysaga, Strahd's self-proclaimed mother, lurked here with her creeping hut and swarms of enchanted scarecrows.",
+      "sessionNumber": 17,
+      "tags": ["combat", "boss", "dungeon"],
+      "date": "2024-05-06"
+    },
+    {
+      "id": "van-richtens-tower",
+      "title": "Van Richten's Tower",
+      "subtitle": "Session 18",
+      "coordinates": [700, 650],
+      "thumbnail": "/images/nodes/van-richtens-tower.jpg",
+      "summary": "A crumbling tower near Lake Baratok where the legendary vampire hunter Rudolph van Richten had been hiding. The party found clues to his identity and his anti-Strahd research.",
+      "sessionNumber": 18,
+      "tags": ["rp", "mystery", "ally"],
+      "date": "2024-05-13"
+    },
+    {
+      "id": "amber-temple",
+      "title": "Amber Temple",
+      "subtitle": "Sessions 19-21",
+      "coordinates": [900, 1300],
+      "thumbnail": "/images/nodes/amber-temple.jpg",
+      "summary": "An ancient temple sealed within Mount Ghakis, housing dark vestiges that offered forbidden power. This is where Strahd himself first made his pact with darkness.",
+      "details": "## Amber Temple\n\nThe most dangerous location in all of Barovia. Ancient sarcophagi held vestiges of dead dark powers, each whispering offers of immense gifts in exchange for corruption.\n\nThe party braved the temple's guardians — flameskulls, amber golems, and arcanaloth — and faced the terrible temptation of the dark gifts. Some accepted. Some refused.\n\nHere they learned the true origin of Strahd's vampirism and found critical artifacts for the final confrontation.",
+      "sessionNumber": 19,
+      "tags": ["dungeon", "combat", "boss", "treasure", "mystery"],
+      "date": "2024-05-20"
+    },
+    {
+      "id": "castle-ravenloft",
+      "title": "Castle Ravenloft",
+      "subtitle": "Sessions 22-25",
+      "coordinates": [1150, 300],
+      "thumbnail": "/images/nodes/castle-ravenloft.jpg",
+      "summary": "The final confrontation. The party stormed Strahd's ancient castle, navigating its endless halls, traps, and servants to face the vampire lord himself in a climactic battle.",
+      "details": "## Castle Ravenloft\n\nThe towering castle loomed over all of Barovia — Strahd's eternal prison and throne. The party entered through the front gates, armed with the artifacts foretold by Madam Eva.\n\nThey navigated the castle's labyrinthine halls: the grand dining room where Strahd awaited, the catacombs below, the towers above, and the heart of sorrow that powered the castle's dark magic.\n\nThe final battle with Strahd von Zarovich tested everything the party had learned and gained throughout their journey through his domain.",
+      "sessionNumber": 22,
+      "tags": ["combat", "boss", "dungeon", "death"],
+      "date": "2024-06-10"
+    }
+  ],
+  "paths": [
+    {
+      "from": "death-house",
+      "to": "village-of-barovia",
+      "style": "normal"
+    },
+    {
+      "from": "village-of-barovia",
+      "to": "tser-pool",
+      "waypoints": [[1500, 880], [1450, 800], [1400, 740]],
+      "style": "normal"
+    },
+    {
+      "from": "tser-pool",
+      "to": "tser-falls",
+      "style": "normal"
+    },
+    {
+      "from": "tser-falls",
+      "to": "old-bonegrinder",
+      "waypoints": [[1180, 620], [1100, 650]],
+      "style": "dangerous"
+    },
+    {
+      "from": "old-bonegrinder",
+      "to": "vallaki",
+      "waypoints": [[950, 640], [880, 580]],
+      "style": "normal"
+    },
+    {
+      "from": "vallaki",
+      "to": "lake-zarovich",
+      "style": "normal"
+    },
+    {
+      "from": "vallaki",
+      "to": "wizard-of-wines",
+      "waypoints": [[720, 600], [650, 700]],
+      "style": "normal"
+    },
+    {
+      "from": "wizard-of-wines",
+      "to": "yester-hill",
+      "style": "dangerous"
+    },
+    {
+      "from": "vallaki",
+      "to": "krezk",
+      "waypoints": [[700, 500], [550, 480], [450, 460]],
+      "style": "normal"
+    },
+    {
+      "from": "krezk",
+      "to": "abbey-of-st-markovia",
+      "style": "normal"
+    },
+    {
+      "from": "vallaki",
+      "to": "argynvostholt",
+      "waypoints": [[850, 700], [870, 850]],
+      "style": "dangerous"
+    },
+    {
+      "from": "argynvostholt",
+      "to": "berez",
+      "waypoints": [[950, 1050]],
+      "style": "dangerous"
+    },
+    {
+      "from": "vallaki",
+      "to": "van-richtens-tower",
+      "style": "stealthy"
+    },
+    {
+      "from": "argynvostholt",
+      "to": "amber-temple",
+      "waypoints": [[920, 1100], [910, 1200]],
+      "style": "dangerous"
+    },
+    {
+      "from": "vallaki",
+      "to": "castle-ravenloft",
+      "waypoints": [[900, 450], [1000, 380], [1100, 330]],
+      "style": "dangerous"
+    }
+  ]
+}
