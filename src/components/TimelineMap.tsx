@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import {
   MapContainer,
   ImageOverlay,
@@ -68,24 +68,6 @@ export function TimelineMap() {
 
   const { mapRef, zoomIn, zoomOut, flyToNode } = useMapControls();
 
-  // Precompute sibling offset info for each path (index-based, no reference equality)
-  const pathSiblingInfo = useMemo(() => {
-    if (!data) return [];
-    return data.paths.map((path, i) => {
-      const key = [path.from, path.to].sort().join("--");
-      // Find all paths with the same node pair, tracking their original indices
-      const siblingIndices: number[] = [];
-      data.paths.forEach((p, j) => {
-        if ([p.from, p.to].sort().join("--") === key) {
-          siblingIndices.push(j);
-        }
-      });
-      return {
-        siblingCount: siblingIndices.length,
-        siblingIndex: siblingIndices.indexOf(i),
-      };
-    });
-  }, [data]);
 
   useEffect(() => {
     if (selectedNode) {
@@ -143,8 +125,6 @@ export function TimelineMap() {
             nodes={data.nodes}
             pathIndex={i}
             totalPaths={data.paths.length}
-            siblingCount={pathSiblingInfo[i]?.siblingCount ?? 1}
-            siblingIndex={pathSiblingInfo[i]?.siblingIndex ?? 0}
           />
         ))}
 

@@ -12,14 +12,7 @@ interface TravelPathProps {
   pathIndex: number;
   /** Total number of paths */
   totalPaths: number;
-  /** How many paths share this same node pair */
-  siblingCount: number;
-  /** This path's index within its sibling group */
-  siblingIndex: number;
 }
-
-/** Pixels of spacing between parallel sibling paths (in map-image pixels) */
-const OFFSET_SPACING = 50;
 
 /**
  * Map a journey index to a rainbow color: red (first) -> violet (last).
@@ -63,60 +56,11 @@ function createArrowIcon(angle: number, color: string): L.DivIcon {
   });
 }
 
-/**
- * Offset the interior of a polyline perpendicular to travel direction.
- * Start and end points stay anchored at node centers so lines still
- * visually connect to the circles, fanning out in the middle.
- */
-function offsetPoints(
-  points: L.LatLng[],
-  siblingCount: number,
-  siblingIndex: number
-): L.LatLng[] {
-  if (siblingCount <= 1) return points;
-
-  const offsetAmount =
-    (siblingIndex - (siblingCount - 1) / 2) * OFFSET_SPACING;
-
-  // For a direct 2-point line (no waypoints), insert a synthetic midpoint
-  // so there's something in the middle to offset.
-  let pts = points;
-  if (pts.length === 2) {
-    const mid = L.latLng(
-      (pts[0].lat + pts[1].lat) / 2,
-      (pts[0].lng + pts[1].lng) / 2
-    );
-    pts = [pts[0], mid, pts[1]];
-  }
-
-  return pts.map((point, i) => {
-    // Keep first and last points at the node centers (no offset)
-    if (i === 0 || i === pts.length - 1) return point;
-
-    // Compute the travel direction at this interior point
-    const dx = pts[i + 1].lng - pts[i - 1].lng;
-    const dy = pts[i + 1].lat - pts[i - 1].lat;
-    const len = Math.sqrt(dx * dx + dy * dy);
-    if (len === 0) return point;
-
-    // Perpendicular normal (rotate 90° counterclockwise)
-    const nx = -dy / len;
-    const ny = dx / len;
-
-    return L.latLng(
-      point.lat + ny * offsetAmount,
-      point.lng + nx * offsetAmount
-    );
-  });
-}
-
 export function TravelPath({
   path,
   nodes,
   pathIndex,
   totalPaths,
-  siblingCount,
-  siblingIndex,
 }: TravelPathProps) {
   const fromNode = nodes.find((n) => n.id === path.from);
   const toNode = nodes.find((n) => n.id === path.to);
@@ -124,14 +68,11 @@ export function TravelPath({
 
   const color = getRainbowColor(pathIndex, totalPaths);
 
-  const rawPoints = [
+  const points = [
     pixelToLatLng(fromNode.coordinates),
     ...(path.waypoints ?? []).map((wp) => pixelToLatLng(wp)),
     pixelToLatLng(toNode.coordinates),
   ];
-
-  // Offset sibling paths so they don't overlap
-  const points = offsetPoints(rawPoints, siblingCount, siblingIndex);
 
   // Place an arrow at the midpoint of each segment
   const arrows: { position: L.LatLng; angle: number }[] = [];
@@ -146,13 +87,25 @@ export function TravelPath({
 
   return (
     <>
+      {/* Black outline behind the colored line */}
+      <Polyline
+        positions={points}
+        pathOptions={{
+          color: "#000000",
+          weight: 7,
+          opacity: 0.5,
+          lineCap: "round",
+          lineJoin: "round",
+        }}
+      />
+      {/* Colored line on top */}
       <Polyline
         positions={points}
         pathOptions={{
           color,
-          weight: 3,
-          opacity: 0.75,
-          dashArray: "8, 12",
+          weight: 5,
+          opacity: 0.85,
+          dashArray: "10, 14",
           lineCap: "round",
           lineJoin: "round",
         }}

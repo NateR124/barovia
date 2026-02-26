@@ -35,14 +35,16 @@
       "id": "tser-falls",
       "title": "Tser Falls",
       "coordinates": [893, 555],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/tser-falls.png",
+      "images": ["/images/nodes/tser-falls.png"],
       "summary": "The party traveled past the towering Tser Falls, crossing the high bridge above the churning river below. A harrowing crossing with breathtaking — and terrifying — views."
     },
     {
       "id": "vallaki",
       "title": "Town of Vallaki",
       "coordinates": [660, 337],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/vallaki-1.png",
+      "images": ["/images/nodes/vallaki-1.png", "/images/nodes/vallaki-2.png"],
       "summary": "The walled town of Vallaki — where the Baron enforced mandatory festivals of happiness. Political intrigue, the Festival of the Blazing Sun, and encounters with Lady Wachter's dark cult.",
       "details": "## Town of Vallaki\n\nBaron Vallakovich ruled the town with delusional optimism, forcing citizens into weekly festivals. \"All will be well\" was the town's hollow motto.\n\nThe party navigated complex political tensions between the Baron, Lady Fiona Wachter (who secretly worshipped devils), and the various factions within the town walls.\n\nKey events: the Festival of the Blazing Sun, the recovery of the bones of St. Andral, and a tense encounter with Strahd himself at the town gates."
     },
@@ -50,7 +52,8 @@
       "id": "old-bonegrinder",
       "title": "Old Bonegrinder",
       "coordinates": [797, 382],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/old-bonegrinder.png",
+      "images": ["/images/nodes/old-bonegrinder.png"],
       "summary": "The old windmill turned out to be the lair of a coven of night hags who were grinding children's bones into dream pastries. A deadly confrontation ensued.",
       "details": "## Old Bonegrinder\n\nMorgantha and her daughters Bella and Offalia had been selling dream pastries to the desperate villagers — pastries made from the bones of kidnapped children.\n\nThe party discovered their horrific operation and fought the hag coven. The battle was nearly fatal, as the hags' combined magic proved devastating."
     },
@@ -58,14 +61,16 @@
       "id": "van-richtens-tower",
       "title": "Van Richten's Tower",
       "coordinates": [379, 288],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/van-richtens-tower.png",
+      "images": ["/images/nodes/van-richtens-tower.png"],
       "summary": "A crumbling tower near Lake Baratok where the legendary vampire hunter Rudolph van Richten had been hiding. The party found clues to his identity and his anti-Strahd research."
     },
     {
       "id": "wizard-of-wines",
       "title": "Wizard of Wines Winery",
       "coordinates": [181, 487],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/wizard-of-wines-1.png",
+      "images": ["/images/nodes/wizard-of-wines-1.png", "/images/nodes/wizard-of-wines-2.png"],
       "summary": "The Martikov family's winery had been overrun by druids and blights. The party cleared the infestation and learned that the magic gems powering the vineyard had been stolen.",
       "details": "## Wizard of Wines\n\nThe Martikovs — secretly wereravens of the Keepers of the Feather — asked for help reclaiming their winery from the Forest Folk.\n\nDruids from Yester Hill had sent wave after wave of twig blights to overwhelm the winery. The party fought through the infestation and discovered that the druids had stolen the enchanted gems that made the wine magical."
     },
@@ -73,7 +78,8 @@
       "id": "yester-hill",
       "title": "Yester Hill",
       "coordinates": [113, 631],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/yester-hill.png",
+      "images": ["/images/nodes/yester-hill.png"],
       "summary": "A sacred hill where the Forest Folk performed dark rituals. The party disrupted the druids' attempt to bring a massive tree blight to life using one of the stolen winery gems."
     },
     {
@@ -87,7 +93,8 @@
       "id": "castle-ravenloft",
       "title": "Castle Ravenloft",
       "coordinates": [1110, 511],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/castle-ravenloft.png",
+      "images": ["/images/nodes/castle-ravenloft.png"],
       "summary": "The party stormed Strahd's ancient castle, navigating its endless halls, traps, and servants to face the vampire lord himself.",
       "details": "## Castle Ravenloft\n\nThe towering castle loomed over all of Barovia — Strahd's eternal prison and throne. The party entered through the front gates, armed with the artifacts foretold by Madam Eva.\n\nThey navigated the castle's labyrinthine halls: the grand dining room where Strahd awaited, the catacombs below, the towers above, and the heart of sorrow that powered the castle's dark magic.\n\nThe final battle with Strahd von Zarovich tested everything the party had learned and gained throughout their journey through his domain."
     },
@@ -95,7 +102,8 @@
       "id": "amber-temple",
       "title": "Amber Temple",
       "coordinates": [521, 849],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/amber-temple.png",
+      "images": ["/images/nodes/amber-temple.png"],
       "summary": "An ancient temple sealed within Mount Ghakis, housing dark vestiges that offered forbidden power. This is where Strahd himself first made his pact with darkness.",
       "details": "## Amber Temple\n\nThe most dangerous location in all of Barovia. Ancient sarcophagi held vestiges of dead dark powers, each whispering offers of immense gifts in exchange for corruption.\n\nThe party braved the temple's guardians — flameskulls, amber golems, and arcanaloth — and faced the terrible temptation of the dark gifts. Some accepted. Some refused.\n\nHere they learned the true origin of Strahd's vampirism and found critical artifacts for the final confrontation."
     },
@@ -103,21 +111,24 @@
       "id": "tsolenka-pass",
       "title": "Tsolenka Pass",
       "coordinates": [428, 748],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/tsolenka-pass.png",
+      "images": ["/images/nodes/tsolenka-pass.png"],
       "summary": "A treacherous mountain pass guarded by stone guardians and bitter cold. The party navigated the narrow bridge and the dangers of Mount Ghakis on their descent."
     },
     {
       "id": "berez",
       "title": "The Ruins of Berez",
       "coordinates": [510, 611],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/berez-1.png",
+      "images": ["/images/nodes/berez-1.png", "/images/nodes/berez-2.png"],
       "summary": "A sunken, swampy ruin that was once a thriving village. Baba Lysaga, Strahd's self-proclaimed mother, lurked here with her creeping hut and swarms of enchanted scarecrows."
     },
     {
       "id": "argynvostholt",
       "title": "Argynvostholt",
       "coordinates": [510, 490],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/argynvostholt-1.png",
+      "images": ["/images/nodes/argynvostholt-1.png", "/images/nodes/argynvostholt-2.png", "/images/nodes/argynvostholt-3.png", "/images/nodes/argynvostholt-4.png"],
       "summary": "The ruined manor of the Order of the Silver Dragon. The party encountered the revenants of fallen knights and sought the beacon that could restore hope to the land.",
       "details": "## Argynvostholt\n\nOnce home to the silver dragon Argynvost and his order of knights, this manor now lay in ruins. The revenants of the fallen knights still patrolled the halls, bound by their oath.\n\nCommander Vladimir Horngaard, consumed by hatred for Strahd, refused to let anyone defeat the vampire — preferring that Strahd suffer eternally in his prison of Barovia.\n\nThe party searched for the skull of Argynvost, whose return could light the beacon and bring hope."
     }
