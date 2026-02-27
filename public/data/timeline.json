@@ -12,14 +12,16 @@
       "id": "gates-of-barovia",
       "title": "Gates of Barovia",
       "coordinates": [1451, 549],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/barovian-gates.png",
+      "images": ["/images/nodes/barovian-gates.png"],
       "summary": "The party passed through the towering iron gates into the mist-shrouded land of Barovia. The gates swung shut behind them — there would be no easy escape."
     },
     {
       "id": "death-house",
       "title": "Death House",
       "coordinates": [1274, 627],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/death-house.png",
+      "images": ["/images/nodes/death-house.png"],
       "summary": "The party arrived in the Village of Barovia, drawn by a mysterious letter. They explored the haunted Death House, uncovering the dark secrets of the Durst family and surviving the horrors within its depths.",
       "details": "## Death House\n\nA crumbling manor on the outskirts of the Village of Barovia. Rose and Thorn Durst — ghostly children — lured the party inside, begging for help against the \"monster in the basement.\"\n\nThe house itself was a living trap: animated armor, spectral servants, and a cult ritual chamber buried deep below. The party fought their way through and destroyed the shambling mound that served as the cult's failed sacrifice.\n\nAs they escaped, the house itself tried to consume them — walls closing in, poison gas filling the halls. They barely made it out alive."
     },
@@ -27,7 +29,8 @@
       "id": "village-of-barovia",
       "title": "Village of Barovia",
       "coordinates": [1230, 620],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/village-of-barovia.png",
+      "images": ["/images/nodes/village-of-barovia.png", "/images/nodes/village-of-barovia-2.png"],
       "summary": "The party explored the somber village, met Ismark and Ireena Kolyana, and learned of Strahd's obsession. They agreed to escort Ireena to safety in Vallaki.",
       "details": "## Village of Barovia\n\nA gloomy settlement under Strahd's shadow. The party visited the Blood of the Vine tavern, met Ismark the Lesser, and visited the burgomaster's mansion where his father lay dead.\n\nThey performed the burial at the village church with Father Donavich, whose son Doru — now a vampire spawn — was locked in the undercroft below.\n\nIreena Kolyana joined the party, hoping to escape Strahd's relentless pursuit."
     },
@@ -62,7 +65,7 @@
       "title": "Van Richten's Tower",
       "coordinates": [379, 288],
       "thumbnail": "/images/nodes/van-richtens-tower.png",
-      "images": ["/images/nodes/van-richtens-tower.png"],
+      "images": ["/images/nodes/van-richtens-tower.png", "/images/nodes/van-richtens-tower-2.png", "/images/nodes/van-richtens-tower-3.png"],
       "summary": "A crumbling tower near Lake Baratok where the legendary vampire hunter Rudolph van Richten had been hiding. The party found clues to his identity and his anti-Strahd research."
     },
     {
@@ -86,7 +89,8 @@
       "id": "krezk",
       "title": "Village of Krezk",
       "coordinates": [158, 289],
-      "thumbnail": "/images/nodes/Puppet.jpg",
+      "thumbnail": "/images/nodes/krezk.png",
+      "images": ["/images/nodes/krezk.png", "/images/nodes/krezk-2.png"],
       "summary": "A walled village at the base of the mountains, ruled by the reclusive Burgomaster Krezkov. The party visited the Shrine of the White Sun, where a mysterious pool reflected visions."
     },
     {
@@ -94,7 +98,7 @@
       "title": "Castle Ravenloft",
       "coordinates": [1110, 511],
       "thumbnail": "/images/nodes/castle-ravenloft.png",
-      "images": ["/images/nodes/castle-ravenloft.png"],
+      "images": ["/images/nodes/castle-ravenloft.png", "/images/nodes/castle-ravenloft-2.png"],
       "summary": "The party stormed Strahd's ancient castle, navigating its endless halls, traps, and servants to face the vampire lord himself.",
       "details": "## Castle Ravenloft\n\nThe towering castle loomed over all of Barovia — Strahd's eternal prison and throne. The party entered through the front gates, armed with the artifacts foretold by Madam Eva.\n\nThey navigated the castle's labyrinthine halls: the grand dining room where Strahd awaited, the catacombs below, the towers above, and the heart of sorrow that powered the castle's dark magic.\n\nThe final battle with Strahd von Zarovich tested everything the party had learned and gained throughout their journey through his domain."
     },
@@ -103,7 +107,7 @@
       "title": "Amber Temple",
       "coordinates": [521, 849],
       "thumbnail": "/images/nodes/amber-temple.png",
-      "images": ["/images/nodes/amber-temple.png"],
+      "images": ["/images/nodes/amber-temple.png", "/images/nodes/amber-temple-2.png", "/images/nodes/amber-temple-3.png"],
       "summary": "An ancient temple sealed within Mount Ghakis, housing dark vestiges that offered forbidden power. This is where Strahd himself first made his pact with darkness.",
       "details": "## Amber Temple\n\nThe most dangerous location in all of Barovia. Ancient sarcophagi held vestiges of dead dark powers, each whispering offers of immense gifts in exchange for corruption.\n\nThe party braved the temple's guardians — flameskulls, amber golems, and arcanaloth — and faced the terrible temptation of the dark gifts. Some accepted. Some refused.\n\nHere they learned the true origin of Strahd's vampirism and found critical artifacts for the final confrontation."
     },
