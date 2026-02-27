@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   MapContainer,
   ImageOverlay,
@@ -67,12 +67,32 @@ export function TimelineMap() {
 
   const { mapRef, zoomIn, zoomOut, flyToNode } = useMapControls();
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 600);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
 
   useEffect(() => {
     if (selectedNode) {
       flyToNode(selectedNode.coordinates);
     }
   }, [selectedNode, flyToNode]);
+
+  if (isMobile) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-[#0d0d0d]">
+        <img
+          src="/images/mobile/mobile.png"
+          alt="Curse of Strahd"
+          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+        />
+      </div>
+    );
+  }
 
   if (loading) {
     return (

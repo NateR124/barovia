@@ -5,6 +5,26 @@ export const metadata: Metadata = {
   title: "Curse of Strahd — Campaign Timeline",
   description:
     "An interactive map tracking the party's journey through Barovia.",
+  openGraph: {
+    title: "Curse of Strahd — Campaign Timeline",
+    description:
+      "An interactive map tracking the party's journey through Barovia.",
+    images: [
+      {
+        url: "/images/nodes/van-richtens-tower-3.png",
+        width: 1200,
+        height: 630,
+        alt: "Curse of Strahd — Campaign Timeline",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Curse of Strahd — Campaign Timeline",
+    description:
+      "An interactive map tracking the party's journey through Barovia.",
+    images: ["/images/nodes/van-richtens-tower-3.png"],
+  },
 };
 
 export default function RootLayout({
