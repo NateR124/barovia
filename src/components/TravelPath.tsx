@@ -56,6 +56,46 @@ function createArrowIcon(angle: number, color: string): L.DivIcon {
   });
 }
 
+/**
+ * Create a sparkle/star DivIcon for teleportation paths.
+ */
+function createSparkleIcon(index: number, color: string): L.DivIcon {
+  const delay = (index * 0.4) % 2;
+  return L.divIcon({
+    className: "",
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+    html: `<div class="teleport-star" style="animation-delay: ${delay}s;">
+             <svg width="20" height="20" viewBox="0 0 20 20">
+               <path d="M10 0 L12 7 L20 10 L12 13 L10 20 L8 13 L0 10 L8 7 Z"
+                     fill="${color}" opacity="0.9"
+                     filter="drop-shadow(0 0 3px ${color})"/>
+             </svg>
+           </div>`,
+  });
+}
+
+/**
+ * Distribute points evenly along a straight line between two LatLng positions.
+ */
+function getEvenlySpacedPoints(
+  from: L.LatLng,
+  to: L.LatLng,
+  count: number
+): L.LatLng[] {
+  const points: L.LatLng[] = [];
+  for (let i = 1; i <= count; i++) {
+    const t = i / (count + 1);
+    points.push(
+      L.latLng(
+        from.lat + (to.lat - from.lat) * t,
+        from.lng + (to.lng - from.lng) * t
+      )
+    );
+  }
+  return points;
+}
+
 export function TravelPath({
   path,
   nodes,
@@ -66,7 +106,46 @@ export function TravelPath({
   const toNode = nodes.find((n) => n.id === path.to);
   if (!fromNode || !toNode) return null;
 
+  const isTeleport = path.style === "teleport";
   const color = getRainbowColor(pathIndex, totalPaths);
+
+  if (isTeleport) {
+    const from = pixelToLatLng(fromNode.coordinates);
+    const to = pixelToLatLng(toNode.coordinates);
+    const sparklePoints = getEvenlySpacedPoints(from, to, 6);
+
+    return (
+      <>
+        <Polyline
+          positions={[from, to]}
+          pathOptions={{
+            color: "#000000",
+            weight: 5,
+            opacity: 0.3,
+            lineCap: "round",
+          }}
+        />
+        <Polyline
+          positions={[from, to]}
+          pathOptions={{
+            color,
+            weight: 3,
+            opacity: 0.7,
+            dashArray: "4, 12",
+            lineCap: "round",
+          }}
+        />
+        {sparklePoints.map((pos, i) => (
+          <Marker
+            key={i}
+            position={pos}
+            icon={createSparkleIcon(i, color)}
+            interactive={false}
+          />
+        ))}
+      </>
+    );
+  }
 
   const points = [
     pixelToLatLng(fromNode.coordinates),

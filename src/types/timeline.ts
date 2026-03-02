@@ -16,7 +16,7 @@ export interface PathSegment {
   from: string;
   to: string;
   waypoints?: [number, number][];
-  style?: "normal" | "dangerous" | "stealthy";
+  style?: "normal" | "dangerous" | "stealthy" | "teleport";
 }
 
 export interface PartyMember {

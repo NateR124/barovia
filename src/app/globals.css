@@ -122,6 +122,22 @@ body {
   transition: transform 0.25s ease-out;
 }
 
+/* Teleportation sparkle animation */
+.teleport-star {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
 /* Gothic tooltip styling */
 .gothic-tooltip {
   background: rgba(26, 26, 26, 0.95) !important;
@@ -130,6 +146,7 @@ body {
   padding: 6px 10px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
   color: #f0e6d2 !important;
+  letter-spacing: 0.05em !important;
 }
 
 .gothic-tooltip::before {

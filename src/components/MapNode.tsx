@@ -12,7 +12,7 @@ interface MapNodeProps {
 }
 
 function createNodeIcon(isSelected: boolean): L.DivIcon {
-  const size = isSelected ? 18 : 14;
+  const size = isSelected ? 24 : 20;
   const borderColor = isSelected ? "#c9a84c" : "#8b7355";
   const bgColor = isSelected ? "#c9a84c" : "#5c4a32";
   const glowSize = isSelected ? 12 : 6;
@@ -52,6 +52,7 @@ export function MapNode({ node, isSelected, onClick }: MapNodeProps) {
       position={position}
       icon={icon}
       eventHandlers={{ click: onClick }}
+      zIndexOffset={500}
       aria-label={node.title}
     >
       <Tooltip
