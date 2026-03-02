@@ -63,6 +63,7 @@ export function TimelineMap() {
     goToPrevious,
     hasNext,
     hasPrevious,
+    latestLocationId,
   } = useTimeline();
 
   const { mapRef, zoomIn, zoomOut, flyToNode } = useMapControls();
@@ -156,7 +157,9 @@ export function TimelineMap() {
           />
         ))}
 
-        <PartyMarker nodeId="argynvostholt" nodes={sortedNodes} />
+        {latestLocationId && (
+          <PartyMarker nodeId={latestLocationId} nodes={sortedNodes} />
+        )}
       </MapContainer>
 
       <ZoomControls onZoomIn={zoomIn} onZoomOut={zoomOut} />

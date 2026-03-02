@@ -51,12 +51,24 @@ export function useTimeline() {
     setSelectedNodeId(sortedNodes[selectedIndex - 1].id);
   }, [selectedIndex, sortedNodes]);
 
+  const latestLocationId = useMemo(() => {
+    if (!data) return null;
+    if (data.paths && data.paths.length > 0) {
+      return data.paths[data.paths.length - 1].to;
+    }
+    if (data.nodes && data.nodes.length > 0) {
+      return data.nodes[data.nodes.length - 1].id;
+    }
+    return null;
+  }, [data]);
+
   return {
     data,
     loading,
     sortedNodes,
     selectedNode,
     selectedIndex,
+    latestLocationId,
     selectNode,
     goToNext,
     goToPrevious,
