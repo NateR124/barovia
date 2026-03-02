@@ -10,7 +10,7 @@ interface PartyMarkerProps {
   nodes: TimelineNode[];
 }
 
-const PARTY_SIZE = 144;
+const PARTY_SIZE = 220;
 
 const partyIcon = L.divIcon({
   className: "custom-node-marker",

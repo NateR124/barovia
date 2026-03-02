@@ -4,7 +4,7 @@ import { Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import { pixelToLatLng } from "@/lib/coordinates";
 
-const ALLIES_SIZE = 128;
+const ALLIES_SIZE = 200;
 
 // Van Richten's Tower coordinates
 const ALLIES_LOCATION: [number, number] = [379, 288];
