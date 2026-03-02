@@ -16,6 +16,7 @@ import { useTimeline } from "@/hooks/useTimeline";
 import { useMapControls } from "@/hooks/useMapControls";
 import { SidePanel } from "./SidePanel";
 import { PartyMarker } from "./PartyMarker";
+import { AlliesMarker } from "./AlliesMarker";
 import type { Map as LeafletMap } from "leaflet";
 
 function MapRefSetter({
@@ -160,6 +161,8 @@ export function TimelineMap() {
         {latestLocationId && (
           <PartyMarker nodeId={latestLocationId} nodes={sortedNodes} />
         )}
+
+        <AlliesMarker />
       </MapContainer>
 
       <ZoomControls onZoomIn={zoomIn} onZoomOut={zoomOut} />

@@ -10,7 +10,7 @@ interface PartyMarkerProps {
   nodes: TimelineNode[];
 }
 
-const PARTY_SIZE = 192;
+const PARTY_SIZE = 144;
 
 const partyIcon = L.divIcon({
   className: "custom-node-marker",
@@ -38,7 +38,7 @@ export function PartyMarker({ nodeId, nodes }: PartyMarkerProps) {
   const position = pixelToLatLng(node.coordinates);
 
   return (
-    <Marker position={position} icon={partyIcon} interactive={false}>
+    <Marker position={position} icon={partyIcon} interactive={false} zIndexOffset={1000}>
       <Tooltip direction="top" offset={[0, -PARTY_SIZE / 2]} className="gothic-tooltip">
         <div className="font-cinzel text-sm font-bold text-[#f0e6d2]">
           The Party

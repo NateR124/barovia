@@ -109,8 +109,16 @@ body {
   border: none !important;
 }
 
-/* Prevent the party icon from scaling during Leaflet zoom animations */
-.leaflet-zoom-animated .party-icon {
+/* Ensure party/allies markers render above path arrows */
+.party-icon,
+.allies-icon {
+  z-index: 1000 !important;
+  position: relative;
+}
+
+/* Prevent the party/allies icons from scaling during Leaflet zoom animations */
+.leaflet-zoom-animated .party-icon,
+.leaflet-zoom-animated .allies-icon {
   transition: transform 0.25s ease-out;
 }
 
