@@ -40,7 +40,7 @@ const LAYOUT = {
   scaleFront: 1.0,
   cellPadding: 1.3,        // >1 means members can exceed cell bounds (overlap)
   rowShift: 0.5,           // each consecutive row shifts right by this many cells
-  rowOverlap: 0.60,        // fraction of row height that overlaps with next row
+  rowOverlap: 0.45,        // fraction of row height that overlaps with next row
   colOverlap: 0.20,        // fraction of cell width that overlaps with next column
 };
 

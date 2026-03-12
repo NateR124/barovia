@@ -17,6 +17,7 @@ import { useMapControls } from "@/hooks/useMapControls";
 import { SidePanel } from "./SidePanel";
 import { PartyMarker } from "./PartyMarker";
 import { JourneyList, buildJourneyEntries } from "./JourneyList";
+import { MistBackground } from "./MistBackground";
 import type { GroupManifest } from "@/types/timeline";
 import type { Map as LeafletMap } from "leaflet";
 
@@ -190,6 +191,13 @@ export function TimelineMap() {
     }
   }, [selectedNode, flyToNode]);
 
+  // Pan to party location when step changes
+  useEffect(() => {
+    if (partyCoordinates) {
+      flyToNode(partyCoordinates);
+    }
+  }, [selectedStep]);
+
   if (isMobile) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-[#0d0d0d]">
@@ -225,21 +233,20 @@ export function TimelineMap() {
   const center = L.latLng(MAP_HEIGHT / 2, MAP_WIDTH / 2);
 
   return (
-    <div className="h-screen w-screen relative overflow-hidden mist-bg">
+    <div className="h-screen w-screen relative overflow-hidden" style={{ background: "#0d0d0d" }}>
+      <MistBackground />
       <MapContainer
         center={center}
         zoom={-1}
         minZoom={-2}
         maxZoom={2}
         crs={L.CRS.Simple}
-        maxBounds={IMAGE_BOUNDS}
-        maxBoundsViscosity={1.0}
         zoomSnap={0.25}
         zoomDelta={0.25}
         wheelPxPerZoomLevel={120}
         zoomControl={false}
         attributionControl={false}
-        className="h-full w-full bg-[#1a1a1a]"
+        className="h-full w-full"
       >
         <MapRefSetter mapRef={mapRef} />
         <CoordinatePicker />
