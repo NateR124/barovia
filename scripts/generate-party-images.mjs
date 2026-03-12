@@ -31,15 +31,17 @@ const TIMELINE_PATH = path.join(PUBLIC, "data", "timeline.json");
 // CONFIG
 // ---------------------------------------------------------------------------
 
-const CANVAS = { width: 800, height: 600 };
+const CANVAS = { width: 2400, height: 1800 };
 
 const LAYOUT = {
-  paddingTop: 0.08,
-  paddingBottom: 0.05,
-  horizontalSpread: 0.55,
-  zigzagDecay: 0.85,
-  scaleBack: 0.75,
+  paddingTop: 0.02,
+  paddingBottom: 0.02,
+  scaleBack: 0.92,
   scaleFront: 1.0,
+  cellPadding: 1.3,        // >1 means members can exceed cell bounds (overlap)
+  rowShift: 0.5,           // each consecutive row shifts right by this many cells
+  rowOverlap: 0.60,        // fraction of row height that overlaps with next row
+  colOverlap: 0.20,        // fraction of cell width that overlaps with next column
 };
 
 // ---------------------------------------------------------------------------
@@ -161,7 +163,32 @@ async function removeWhiteBackground(inputBuffer) {
 // LAYOUT
 // ---------------------------------------------------------------------------
 
-async function calculateLayout(members, canvas = CANVAS) {
+/**
+ * Distribute N members into rows:
+ *   - 1-2 members: 1 row
+ *   - 3-4 members: 2 rows (max 2 per row)
+ *   - 5+  members: max 3 per row, add rows as needed
+ * Back rows (earlier) are filled first so they have more members.
+ */
+function getRowDistribution(count) {
+  if (count <= 0) return [];
+  if (count <= 2) return [count];
+  if (count <= 4) {
+    // 2 rows, back row gets more
+    const back = Math.ceil(count / 2);
+    return [back, count - back];
+  }
+  // 5+: fill rows of up to 3, back rows first
+  const rows = [];
+  let remaining = count;
+  while (remaining > 0) {
+    rows.push(Math.min(3, remaining));
+    remaining -= rows[rows.length - 1];
+  }
+  return rows;
+}
+
+async function calculateLayout(members, canvas = CANVAS, { forceOneRow = false } = {}) {
   const withMeta = [];
 
   for (const m of members) {
@@ -175,67 +202,102 @@ async function calculateLayout(members, canvas = CANVAS) {
 
   if (withMeta.length === 0) return [];
 
-  // Sort by zIndex (back-to-front)
-  const sorted = [...withMeta].sort((a, b) => a.zIndex - b.zIndex);
+  // Sort by order (lower = back row, left side)
+  const sorted = [...withMeta].sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
   const count = sorted.length;
+  const rows = forceOneRow ? [count] : getRowDistribution(count);
+  const numRows = rows.length;
+  const maxRowSize = Math.max(...rows);
 
-  // Normalize: each member's base size should fit within a slot
-  // Max height per member = canvas height / (count * 0.7) to allow overlap
-  const maxMemberHeight = canvas.height / Math.max(count * 0.7, 1.2);
-  const maxMemberWidth = canvas.width * 0.4;
-
-  sorted.forEach((member) => {
-    const hScale = maxMemberHeight / member.height;
-    const wScale = maxMemberWidth / member.width;
-    const baseScale = Math.min(hScale, wScale, 1); // never upscale
-    member.width = Math.round(member.width * baseScale);
-    member.height = Math.round(member.height * baseScale);
-  });
-
+  // Cell sizing — members fill most of the canvas height, columns overlap
   const topY = canvas.height * LAYOUT.paddingTop;
   const bottomY = canvas.height * (1 - LAYOUT.paddingBottom);
   const availableHeight = bottomY - topY;
 
-  const centerX = canvas.width / 2;
-  const maxSpread = (canvas.width * LAYOUT.horizontalSpread) / 2;
+  // With overlap, effective row step is smaller than full cellH
+  // cellH is the full size a member can occupy; rows step by cellH * (1 - rowOverlap)
+  const rowStep = numRows > 1
+    ? availableHeight / (1 + (numRows - 1) * (1 - LAYOUT.rowOverlap))
+    : availableHeight;
+  const cellH = rowStep; // each row's allocation
 
-  sorted.forEach((member, i) => {
-    const t = count > 1 ? i / (count - 1) : 0.5;
+  // Column width with overlap
+  const lastRowShift = (numRows - 1) * LAYOUT.rowShift;
+  const effectiveCols = maxRowSize + lastRowShift;
+  const fullCellW = canvas.width / (effectiveCols + 0.3);
+  const colStep = fullCellW * (1 - LAYOUT.colOverlap); // how far apart columns actually are
+  const cellW = fullCellW; // used for sizing
 
-    // Scale based on depth, multiplied by per-character scale
-    const depthScale = LAYOUT.scaleBack + t * (LAYOUT.scaleFront - LAYOUT.scaleBack);
-    const scale = depthScale * (member.charScale || 1.0);
-    const scaledW = Math.round(member.width * scale);
-    const scaledH = Math.round(member.height * scale);
+  // Normalize: scale each member individually so they all start at the same
+  // base height (filling the cell). Source resolution differences are erased —
+  // a 600px-tall character and a 2500px-tall character both become cellH.
+  // charScale then controls the intended size differences between characters.
+  const maxMemberH = cellH * LAYOUT.cellPadding;
+  const maxMemberW = cellW * LAYOUT.cellPadding;
 
-    // Y position
-    const rawY = topY + t * availableHeight;
-
-    // X zigzag from center
-    let offsetX = 0;
-    if (i > 0) {
-      const ring = Math.ceil(i / 2);
-      const direction = i % 2 === 1 ? 1 : -1;
-      const magnitude = (ring / Math.ceil(count / 2)) * maxSpread;
-      offsetX = direction * magnitude * Math.pow(LAYOUT.zigzagDecay, ring - 1);
-    }
-
-    member.x = Math.round(centerX + offsetX - scaledW / 2);
-    member.y = Math.round(rawY - scaledH / 2);
-    member.scale = scale;
-    member.scaledW = scaledW;
-    member.scaledH = scaledH;
+  sorted.forEach((member) => {
+    const s = Math.min(maxMemberH / member.height, maxMemberW / member.width);
+    member.width = Math.round(member.width * s);
+    member.height = Math.round(member.height * s);
   });
 
-  return sorted;
+  // Place members row by row
+  const laid = [];
+  let memberIdx = 0;
+
+  // Center the grid horizontally
+  const gridActualWidth = (maxRowSize - 1) * colStep + cellW;
+  const totalShift = lastRowShift * colStep / (1 - LAYOUT.colOverlap); // shift in pixels
+  const gridStartX = (canvas.width - gridActualWidth) / 2 - totalShift / 2;
+
+  for (let r = 0; r < numRows; r++) {
+    const rowSize = rows[r];
+    const rowT = numRows > 1 ? r / (numRows - 1) : 0.5;
+
+    // Depth scale: back rows slightly smaller, front rows full size
+    const depthScale = LAYOUT.scaleBack + rowT * (LAYOUT.scaleFront - LAYOUT.scaleBack);
+
+    // Row bottom Y — rows overlap vertically
+    const rowBottomY = topY + cellH + r * rowStep * (1 - LAYOUT.rowOverlap);
+
+    // Row X offset: staircase shift
+    const rowOffsetX = r * LAYOUT.rowShift * colStep / (1 - LAYOUT.colOverlap);
+
+    const rowStartX = gridStartX + rowOffsetX;
+
+    // Lay out members left-to-right, but collect in reverse so leftmost
+    // is composited last (on top) — characters face left, so left = foreground
+    const rowMembers = [];
+    for (let c = 0; c < rowSize; c++) {
+      const member = sorted[memberIdx++];
+      const scale = depthScale * (member.charScale || 1.0);
+      const scaledW = Math.round(member.width * scale);
+      const scaledH = Math.round(member.height * scale);
+
+      // Center horizontally in overlapping column, anchor to bottom of row
+      const cellCenterX = rowStartX + c * colStep + cellW / 2;
+
+      member.x = Math.round(cellCenterX - scaledW / 2);
+      member.y = Math.round(rowBottomY - scaledH + (member.yOffset || 0));
+      member.scale = scale;
+      member.scaledW = scaledW;
+      member.scaledH = scaledH;
+      rowMembers.push(member);
+    }
+    // Reverse: rightmost first (background), leftmost last (foreground)
+    rowMembers.reverse();
+    laid.push(...rowMembers);
+  }
+
+  return laid;
 }
 
 // ---------------------------------------------------------------------------
 // COMPOSITOR
 // ---------------------------------------------------------------------------
 
-async function compositeGroup(members, canvas = CANVAS) {
-  const laid = await calculateLayout(members, canvas);
+async function compositeGroup(members, canvas = CANVAS, layoutOpts = {}) {
+  const laid = await calculateLayout(members, canvas, layoutOpts);
   if (laid.length === 0) return null;
 
   const compositeOps = await Promise.all(
@@ -281,7 +343,7 @@ function getCompositionHash(memberSpecs, characters) {
   const payload = JSON.stringify(
     memberSpecs.map((m) => {
       const charDef = characters?.[m.id] || {};
-      return { id: m.id, variant: m.variant, flip: !!charDef.flip, scale: charDef.scale || 1 };
+      return { id: m.id, variant: m.variant, flip: !!charDef.flip, scale: charDef.scale || 1, yOffset: charDef.yOffset || 0, order: charDef.order ?? 99 };
     }).sort((a, b) => a.id.localeCompare(b.id))
   );
   return createHash("sha256").update(payload).digest("hex").slice(0, 12);
@@ -400,9 +462,10 @@ async function main() {
 
       members.push({
         id: spec.id,
-        zIndex: i,
+        order: charDef.order ?? 99,
         buffer: cleanBuffer,
         charScale: charDef.scale || 1.0,
+        yOffset: charDef.yOffset || 0,
       });
     }
 
@@ -445,6 +508,123 @@ async function main() {
   const manifestPath = path.join(OUTPUT_DIR, "manifest.json");
   await writeFile(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
   console.log(`\n📋 Manifest written to ${path.relative(ROOT, manifestPath)}`);
+
+  // Generate a test image with ALL characters (variant 0) for size comparison
+  // Generate test image: each row = a variant index, each column = a character
+  // Row 0 = variant 0, row 1 = variant 1, etc. If a character lacks that variant, repeat variant 0.
+  console.log("\n🧪 Generating all-characters test image...");
+  const charEntries = Object.entries(characters);
+  const maxVariants = Math.max(...charEntries.map(([, def]) => def.assets.length));
+  const numChars = charEntries.length;
+
+  // Pre-load and clean variant 0 for each character (fallback)
+  const cleanBuffers = {}; // charId -> { variantIndex -> buffer }
+  for (const [charId, charDef] of charEntries) {
+    cleanBuffers[charId] = {};
+    for (let v = 0; v < charDef.assets.length; v++) {
+      const assetPath = await resolveAsset(charId, v, characters);
+      if (!assetPath) continue;
+      const rawBuffer = await readFile(assetPath);
+      let clean = await removeWhiteBackground(rawBuffer);
+      if (charDef.flip) {
+        clean = await sharp(clean).flop().png().toBuffer();
+      }
+      cleanBuffers[charId][v] = clean;
+    }
+  }
+
+  // Build control row (no scale) and scaled variant rows
+  const rowHeight = 1200;
+  const labelHeight = 100;
+  const testCanvasW = numChars * 400;
+  const cellW = 400;
+
+  // Control row: variant 0, all scale = 1.0
+  const controlRow = [];
+  for (const [charId, charDef] of charEntries) {
+    const buffer = cleanBuffers[charId][0];
+    if (!buffer) continue;
+    controlRow.push({
+      id: charId,
+      order: controlRow.length,
+      buffer,
+      charScale: 1.0, // no scale applied
+      yOffset: 0,
+    });
+  }
+
+  // Scaled variant rows
+  const variantRows = [];
+  for (let v = 0; v < maxVariants; v++) {
+    const row = [];
+    for (const [charId, charDef] of charEntries) {
+      const buffer = cleanBuffers[charId][v] || cleanBuffers[charId][0];
+      if (!buffer) continue;
+      row.push({
+        id: charId,
+        order: charDef.order ?? row.length,
+        buffer,
+        charScale: charDef.scale || 1.0,
+        yOffset: charDef.yOffset || 0,
+      });
+    }
+    variantRows.push(row);
+  }
+
+  // Render control row
+  const controlResult = await compositeGroup(controlRow, { width: testCanvasW, height: rowHeight }, { forceOneRow: true });
+
+  // Create label bar with scale values
+  const labelSvgParts = charEntries.map(([charId, charDef], i) => {
+    const scale = charDef.scale || 1.0;
+    const x = i * cellW + cellW / 2;
+    return `<text x="${x}" y="65" text-anchor="middle" font-size="48" font-family="Arial, sans-serif" fill="white">${charId}: ${scale}</text>`;
+  });
+  const labelSvg = `<svg width="${testCanvasW}" height="${labelHeight}">
+    <rect width="100%" height="100%" fill="#333"/>
+    ${labelSvgParts.join("\n    ")}
+  </svg>`;
+  const labelBuffer = await sharp(Buffer.from(labelSvg)).png().toBuffer();
+
+  // Render each variant row
+  const variantResults = [];
+  for (const row of variantRows) {
+    const result = await compositeGroup(row, { width: testCanvasW, height: rowHeight }, { forceOneRow: true });
+    if (result) variantResults.push(result);
+  }
+
+  // Stack: control row, label bar, then variant rows
+  if (controlResult && variantResults.length > 0) {
+    const totalH = rowHeight + labelHeight + rowHeight * variantResults.length;
+    const compositeOps = [
+      { input: controlResult, top: 0, left: 0 },
+      { input: labelBuffer, top: rowHeight, left: 0 },
+    ];
+    variantResults.forEach((buf, i) => {
+      compositeOps.push({
+        input: buf,
+        top: rowHeight + labelHeight + i * rowHeight,
+        left: 0,
+      });
+    });
+
+    const testResult = await sharp({
+      create: {
+        width: testCanvasW,
+        height: totalH,
+        channels: 4,
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
+      },
+    })
+      .composite(compositeOps)
+      .png()
+      .toBuffer();
+
+    const testPath = path.join(OUTPUT_DIR, "_test_all_characters.png");
+    await writeFile(testPath, testResult);
+    console.log(`  ✓ _test_all_characters.png (${numChars} characters — control + ${variantResults.length} variants)`);
+  }
+
   console.log("Done!\n");
 }
 

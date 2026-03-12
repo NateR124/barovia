@@ -11,7 +11,9 @@
           "kaelem/kaelem_1.png",
           "kaelem/kaelem_2.png",
           "kaelem/kaelem_3.png"
-        ]
+        ],
+        "yOffset": 30,
+        "order": 3
       },
       "puppet": {
         "name": "Puppet",
@@ -20,14 +22,17 @@
           "puppet/puppet_2.png",
           "puppet/puppet_3.png"
         ],
-        "flip": true
+        "flip": true,
+        "scale": 0.35,
+        "order": 2
       },
       "evelina": {
         "name": "Evelina",
         "assets": [
           "evelina/evelina_1.png",
           "evelina/evelina_2.png"
-        ]
+        ],
+        "order": 1
       },
       "aurora": {
         "name": "Aurora",
@@ -36,7 +41,9 @@
           "aurora/aurora_2.png",
           "aurora/aurora_3.png"
         ],
-        "flip": true
+        "flip": true,
+        "scale": 0.75,
+        "order": 0
       },
       "darian": {
         "name": "Darian",
@@ -44,34 +51,44 @@
           "darian/darian_1.png",
           "darian/darian_2.png",
           "darian/darian_3.png"
-        ]
+        ],
+        "scale": 0.9,
+        "order": 4
       },
       "dog": {
         "name": "Dog",
         "assets": [
           "dog/dog_1.png",
           "dog/dog_2.png"
-        ]
+        ],
+        "scale": 0.65,
+        "order": 5
       },
       "armor": {
         "name": "Armor",
         "assets": [
           "armor/armor_1.png"
         ],
-        "flip": true
+        "flip": true,
+        "scale": 0.7,
+        "order": 6
       },
       "phillipe": {
         "name": "Phillipe",
         "assets": [
           "phillipe/phillipe_1.png"
-        ]
-      },
-      "godfree": {
-        "name": "Godfree",
-        "assets": [
-          "godfree/godfree_1.png"
         ],
-        "flip": true
+        "scale": 0.8,
+        "order": 7
+      },
+      "godfrey": {
+        "name": "Godfrey",
+        "assets": [
+          "godfrey/godfrey_1.png"
+        ],
+        "flip": true,
+        "scale": 0.75,
+        "order": 8
       }
     },
     "groups": {
@@ -314,7 +331,7 @@
                 "variant": 1
               },
               {
-                "id": "godfree",
+                "id": "godfrey",
                 "variant": 0
               }
             ]
@@ -357,7 +374,7 @@
             "atStep": 20,
             "set": [
               {
-                "id": "godfree",
+                "id": "godfrey",
                 "variant": 0
               },
               {

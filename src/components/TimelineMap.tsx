@@ -16,7 +16,6 @@ import { useTimeline } from "@/hooks/useTimeline";
 import { useMapControls } from "@/hooks/useMapControls";
 import { SidePanel } from "./SidePanel";
 import { PartyMarker } from "./PartyMarker";
-import { MapLegend } from "./MapLegend";
 import { JourneyList, buildJourneyEntries } from "./JourneyList";
 import type { GroupManifest } from "@/types/timeline";
 import type { Map as LeafletMap } from "leaflet";
@@ -142,8 +141,14 @@ export function TimelineMap() {
     };
   }, [manifest, selectedStep, data]);
 
-  // When party and allies share the same node, offset them horizontally
+  // When party and allies share the same node, offset them and face each other
   const CO_LOCATE_OFFSET = 80; // pixels to spread apart
+
+  const coLocated = useMemo(() => {
+    if (!alliesInfoRaw) return false;
+    const partyNodeId = journeyEntries[selectedStep]?.nodeId;
+    return partyNodeId === alliesInfoRaw.nodeId;
+  }, [alliesInfoRaw, selectedStep, journeyEntries]);
 
   const adjustedPartyCoordinates = useMemo(() => {
     if (!partyCoordinates || !alliesInfoRaw) return partyCoordinates;
@@ -264,7 +269,7 @@ export function TimelineMap() {
         {adjustedPartyCoordinates && (
           <PartyMarker
             coordinates={adjustedPartyCoordinates}
-            facingLeft={partyFacingLeft}
+            facingLeft={coLocated ? false : partyFacingLeft}
             imageSrc={partyImageSrc}
             label="The Party"
           />
@@ -276,13 +281,12 @@ export function TimelineMap() {
             facingLeft={true}
             imageSrc={alliesInfo.image}
             label="The Allies"
-            size={200}
+            size={300}
           />
         )}
       </MapContainer>
 
       <ZoomControls onZoomIn={zoomIn} onZoomOut={zoomOut} />
-      <MapLegend />
 
       <JourneyList
         paths={data.paths}

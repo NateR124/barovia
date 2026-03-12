@@ -25,6 +25,8 @@ export interface CharacterDef {
   assets: string[];
   flip?: boolean;   // horizontally flip this character's art
   scale?: number;   // relative size multiplier (default 1.0)
+  yOffset?: number; // vertical pixel shift (positive = down)
+  order?: number;   // grid position priority (lower = back row, left side)
 }
 
 export interface GroupMemberRef {

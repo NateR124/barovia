@@ -27,8 +27,8 @@ function createGroupIcon(
       <div class="${cssClass}" style="
         width: ${size}px;
         height: ${size}px;
-        filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
-        transform: scaleX(${facingLeft ? -1 : 1});
+        filter: drop-shadow(0 0 2px rgba(0,0,0,0.9)) drop-shadow(0 0 2px rgba(0,0,0,0.9)) drop-shadow(0 0 1px rgba(0,0,0,1)) drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+        transform: scaleX(${facingLeft ? 1 : -1});
       ">
         <img
           src="${imageSrc}"
@@ -45,7 +45,7 @@ export function PartyMarker({
   facingLeft,
   imageSrc = "/images/characters/Party.png",
   label = "The Party",
-  size = 220,
+  size = 480,
 }: PartyMarkerProps) {
   const markerRef = useRef<L.Marker>(null);
   const animFrameRef = useRef<number>(0);
