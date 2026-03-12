@@ -1,0 +1,190 @@
+{
+  "party": {
+    "0": {
+      "image": "/images/characters/generated/party_a2ceb89b2bfb.png",
+      "location": null
+    },
+    "1": {
+      "image": "/images/characters/generated/party_4a568b00ad5d.png",
+      "location": null
+    },
+    "2": {
+      "image": "/images/characters/generated/party_4f1c3be92d46.png",
+      "location": null
+    },
+    "3": {
+      "image": "/images/characters/generated/party_4f1c3be92d46.png",
+      "location": null
+    },
+    "4": {
+      "image": "/images/characters/generated/party_4f1c3be92d46.png",
+      "location": null
+    },
+    "5": {
+      "image": "/images/characters/generated/party_4f1c3be92d46.png",
+      "location": null
+    },
+    "6": {
+      "image": "/images/characters/generated/party_4f1c3be92d46.png",
+      "location": null
+    },
+    "7": {
+      "image": "/images/characters/generated/party_e774f4f2f9c9.png",
+      "location": null
+    },
+    "8": {
+      "image": "/images/characters/generated/party_e774f4f2f9c9.png",
+      "location": null
+    },
+    "9": {
+      "image": "/images/characters/generated/party_e774f4f2f9c9.png",
+      "location": null
+    },
+    "10": {
+      "image": "/images/characters/generated/party_e774f4f2f9c9.png",
+      "location": null
+    },
+    "11": {
+      "image": "/images/characters/generated/party_4f1c3be92d46.png",
+      "location": null
+    },
+    "12": {
+      "image": "/images/characters/generated/party_2689564c4eca.png",
+      "location": null
+    },
+    "13": {
+      "image": "/images/characters/generated/party_cfe34d8cf217.png",
+      "location": null
+    },
+    "14": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    },
+    "15": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    },
+    "16": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    },
+    "17": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    },
+    "18": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    },
+    "19": {
+      "image": "/images/characters/generated/party_283956fb5077.png",
+      "location": null
+    },
+    "20": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    },
+    "21": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    },
+    "22": {
+      "image": "/images/characters/generated/party_fd1cb8e2c62f.png",
+      "location": null
+    }
+  },
+  "allies": {
+    "0": {
+      "image": null,
+      "location": null
+    },
+    "1": {
+      "image": null,
+      "location": null
+    },
+    "2": {
+      "image": null,
+      "location": null
+    },
+    "3": {
+      "image": null,
+      "location": null
+    },
+    "4": {
+      "image": null,
+      "location": null
+    },
+    "5": {
+      "image": null,
+      "location": null
+    },
+    "6": {
+      "image": null,
+      "location": null
+    },
+    "7": {
+      "image": null,
+      "location": null
+    },
+    "8": {
+      "image": null,
+      "location": null
+    },
+    "9": {
+      "image": null,
+      "location": null
+    },
+    "10": {
+      "image": null,
+      "location": null
+    },
+    "11": {
+      "image": null,
+      "location": null
+    },
+    "12": {
+      "image": null,
+      "location": null
+    },
+    "13": {
+      "image": null,
+      "location": null
+    },
+    "14": {
+      "image": null,
+      "location": null
+    },
+    "15": {
+      "image": null,
+      "location": null
+    },
+    "16": {
+      "image": null,
+      "location": null
+    },
+    "17": {
+      "image": null,
+      "location": null
+    },
+    "18": {
+      "image": null,
+      "location": null
+    },
+    "19": {
+      "image": null,
+      "location": null
+    },
+    "20": {
+      "image": "/images/characters/generated/allies_a1eb5de4eced.png",
+      "location": "van-richtens-tower"
+    },
+    "21": {
+      "image": "/images/characters/generated/allies_a1eb5de4eced.png",
+      "location": "van-richtens-tower"
+    },
+    "22": {
+      "image": "/images/characters/generated/allies_a1eb5de4eced.png",
+      "location": "van-richtens-tower"
+    }
+  }
+}

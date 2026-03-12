@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   MapContainer,
   ImageOverlay,
@@ -16,9 +16,14 @@ import { useTimeline } from "@/hooks/useTimeline";
 import { useMapControls } from "@/hooks/useMapControls";
 import { SidePanel } from "./SidePanel";
 import { PartyMarker } from "./PartyMarker";
-import { AlliesMarker } from "./AlliesMarker";
 import { MapLegend } from "./MapLegend";
+import { JourneyList, buildJourneyEntries } from "./JourneyList";
+import type { GroupManifest } from "@/types/timeline";
 import type { Map as LeafletMap } from "leaflet";
+
+interface ManifestData {
+  [groupName: string]: GroupManifest;
+}
 
 function MapRefSetter({
   mapRef,
@@ -65,7 +70,6 @@ export function TimelineMap() {
     goToPrevious,
     hasNext,
     hasPrevious,
-    latestLocationId,
   } = useTimeline();
 
   const { mapRef, zoomIn, zoomOut, flyToNode } = useMapControls();
@@ -78,6 +82,102 @@ export function TimelineMap() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  // Load group manifest
+  const [manifest, setManifest] = useState<ManifestData | null>(null);
+  useEffect(() => {
+    fetch("/images/characters/generated/manifest.json")
+      .then((res) => res.ok ? res.json() : null)
+      .then(setManifest)
+      .catch(() => setManifest(null));
+  }, []);
+
+  // Journey step selection — defaults to last step
+  const journeyEntries = useMemo(() => {
+    if (!data) return [];
+    return buildJourneyEntries(data.paths, data.nodes, data.campaign.startingLevel);
+  }, [data]);
+
+  const [selectedStep, setSelectedStep] = useState(-1);
+
+  // Initialize to last step once data loads
+  useEffect(() => {
+    if (journeyEntries.length > 0 && selectedStep === -1) {
+      setSelectedStep(journeyEntries.length - 1);
+    }
+  }, [journeyEntries.length]);
+
+  // Determine party position and facing from selected step
+  const partyCoordinates = useMemo(() => {
+    if (selectedStep < 0 || selectedStep >= journeyEntries.length) return null;
+    return journeyEntries[selectedStep].coordinates;
+  }, [selectedStep, journeyEntries]);
+
+  const partyFacingLeft = useMemo(() => {
+    if (selectedStep <= 0 || selectedStep >= journeyEntries.length) return true;
+    const prev = journeyEntries[selectedStep - 1].coordinates;
+    const curr = journeyEntries[selectedStep].coordinates;
+    return prev[0] >= curr[0];
+  }, [selectedStep, journeyEntries]);
+
+  // Get the party image for the current step from manifest
+  const partyImageSrc = useMemo(() => {
+    if (!manifest?.party) return "/images/characters/Party.png";
+    const entry = manifest.party[String(selectedStep)] as { image: string | null; location: string | null } | undefined;
+    return entry?.image || "/images/characters/Party.png";
+  }, [manifest, selectedStep]);
+
+  // Get allies info for the current step
+  const alliesInfoRaw = useMemo(() => {
+    if (!manifest?.allies) return null;
+    const entry = manifest.allies[String(selectedStep)] as { image: string | null; location: string | null } | undefined;
+    if (!entry?.location) return null;
+
+    const node = data?.nodes.find((n) => n.id === entry.location);
+    if (!node) return null;
+
+    return {
+      image: entry.image || "/images/characters/Allies.png",
+      coordinates: node.coordinates,
+      nodeId: node.id,
+    };
+  }, [manifest, selectedStep, data]);
+
+  // When party and allies share the same node, offset them horizontally
+  const CO_LOCATE_OFFSET = 80; // pixels to spread apart
+
+  const adjustedPartyCoordinates = useMemo(() => {
+    if (!partyCoordinates || !alliesInfoRaw) return partyCoordinates;
+    const partyNodeId = journeyEntries[selectedStep]?.nodeId;
+    if (partyNodeId === alliesInfoRaw.nodeId) {
+      return [partyCoordinates[0] - CO_LOCATE_OFFSET, partyCoordinates[1]] as [number, number];
+    }
+    return partyCoordinates;
+  }, [partyCoordinates, alliesInfoRaw, selectedStep, journeyEntries]);
+
+  const alliesInfo = useMemo(() => {
+    if (!alliesInfoRaw || !partyCoordinates) return alliesInfoRaw;
+    const partyNodeId = journeyEntries[selectedStep]?.nodeId;
+    if (partyNodeId === alliesInfoRaw.nodeId) {
+      return {
+        ...alliesInfoRaw,
+        coordinates: [alliesInfoRaw.coordinates[0] + CO_LOCATE_OFFSET, alliesInfoRaw.coordinates[1]] as [number, number],
+      };
+    }
+    return alliesInfoRaw;
+  }, [alliesInfoRaw, partyCoordinates, selectedStep, journeyEntries]);
+
+  // Determine which paths and nodes are visible at the selected step
+  const visiblePathCount = useMemo(() => {
+    return Math.max(0, selectedStep);
+  }, [selectedStep]);
+
+  const visibleNodeIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (let i = 0; i <= selectedStep && i < journeyEntries.length; i++) {
+      ids.add(journeyEntries[i].nodeId);
+    }
+    return ids;
+  }, [selectedStep, journeyEntries]);
 
   useEffect(() => {
     if (selectedNode) {
@@ -140,7 +240,7 @@ export function TimelineMap() {
         <CoordinatePicker />
         <ImageOverlay url="/images/map/barovia-map.png" bounds={IMAGE_BOUNDS} />
 
-        {data.paths.map((path, i) => (
+        {data.paths.slice(0, visiblePathCount).map((path, i) => (
           <TravelPath
             key={i}
             path={path}
@@ -150,24 +250,47 @@ export function TimelineMap() {
           />
         ))}
 
-        {sortedNodes.map((node) => (
-          <MapNode
-            key={node.id}
-            node={node}
-            isSelected={selectedNode?.id === node.id}
-            onClick={() => selectNode(node.id)}
-          />
-        ))}
+        {sortedNodes
+          .filter((node) => visibleNodeIds.has(node.id))
+          .map((node) => (
+            <MapNode
+              key={node.id}
+              node={node}
+              isSelected={selectedNode?.id === node.id}
+              onClick={() => selectNode(node.id)}
+            />
+          ))}
 
-        {latestLocationId && (
-          <PartyMarker nodeId={latestLocationId} nodes={sortedNodes} />
+        {adjustedPartyCoordinates && (
+          <PartyMarker
+            coordinates={adjustedPartyCoordinates}
+            facingLeft={partyFacingLeft}
+            imageSrc={partyImageSrc}
+            label="The Party"
+          />
         )}
 
-        <AlliesMarker />
+        {alliesInfo && (
+          <PartyMarker
+            coordinates={alliesInfo.coordinates}
+            facingLeft={true}
+            imageSrc={alliesInfo.image}
+            label="The Allies"
+            size={200}
+          />
+        )}
       </MapContainer>
 
       <ZoomControls onZoomIn={zoomIn} onZoomOut={zoomOut} />
       <MapLegend />
+
+      <JourneyList
+        paths={data.paths}
+        nodes={data.nodes}
+        startingLevel={data.campaign.startingLevel}
+        selectedStep={selectedStep}
+        onSelectStep={setSelectedStep}
+      />
 
       <SidePanel
         node={selectedNode}

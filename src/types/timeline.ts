@@ -17,12 +17,34 @@ export interface PathSegment {
   to: string;
   waypoints?: [number, number][];
   style?: "normal" | "dangerous" | "stealthy" | "teleport";
+  partyLevel?: number;
 }
 
-export interface PartyMember {
+export interface CharacterDef {
   name: string;
-  class: string;
-  player: string;
+  assets: string[];
+  flip?: boolean;   // horizontally flip this character's art
+  scale?: number;   // relative size multiplier (default 1.0)
+}
+
+export interface GroupMemberRef {
+  id: string;
+  variant: number;
+}
+
+export interface GroupChange {
+  atStep: number;
+  set: GroupMemberRef[];
+  location?: string; // node ID — for groups with a fixed location (e.g. allies)
+}
+
+export interface GroupDef {
+  default: GroupMemberRef[] | null;
+  changes?: GroupChange[];
+}
+
+export interface GroupManifest {
+  [step: string]: string | null; // step number -> image URL or null
 }
 
 export interface CampaignData {
@@ -30,7 +52,9 @@ export interface CampaignData {
     name: string;
     dm: string;
     startDate: string;
-    party: PartyMember[];
+    startingLevel?: number;
+    characters?: Record<string, CharacterDef>;
+    groups?: Record<string, GroupDef>;
   };
   nodes: TimelineNode[];
   paths: PathSegment[];

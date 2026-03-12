@@ -1,47 +1,130 @@
 "use client";
 
-import { Marker, Tooltip } from "react-leaflet";
+import { useEffect, useRef, useState } from "react";
+import { Marker, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import { pixelToLatLng } from "@/lib/coordinates";
-import type { TimelineNode } from "@/types/timeline";
 
 interface PartyMarkerProps {
-  nodeId: string;
-  nodes: TimelineNode[];
+  coordinates: [number, number];
+  facingLeft: boolean;
+  imageSrc?: string;
+  label?: string;
+  size?: number;
 }
 
-const PARTY_SIZE = 220;
+function createGroupIcon(
+  facingLeft: boolean,
+  imageSrc: string,
+  size: number,
+  cssClass: string,
+): L.DivIcon {
+  return L.divIcon({
+    className: "custom-node-marker",
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    html: `
+      <div class="${cssClass}" style="
+        width: ${size}px;
+        height: ${size}px;
+        filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
+        transform: scaleX(${facingLeft ? -1 : 1});
+      ">
+        <img
+          src="${imageSrc}"
+          alt="Group location"
+          style="width: 100%; height: 100%; object-fit: contain;"
+        />
+      </div>
+    `,
+  });
+}
 
-const partyIcon = L.divIcon({
-  className: "custom-node-marker",
-  iconSize: [PARTY_SIZE, PARTY_SIZE],
-  iconAnchor: [PARTY_SIZE / 2, PARTY_SIZE / 2],
-  html: `
-    <div class="party-icon" style="
-      width: ${PARTY_SIZE}px;
-      height: ${PARTY_SIZE}px;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
-    ">
-      <img
-        src="/images/characters/Party.png"
-        alt="Party location"
-        style="width: 100%; height: 100%; object-fit: contain;"
-      />
-    </div>
-  `,
-});
+export function PartyMarker({
+  coordinates,
+  facingLeft,
+  imageSrc = "/images/characters/Party.png",
+  label = "The Party",
+  size = 220,
+}: PartyMarkerProps) {
+  const markerRef = useRef<L.Marker>(null);
+  const animFrameRef = useRef<number>(0);
+  const [displayPos, setDisplayPos] = useState<[number, number]>(coordinates);
+  const prevCoordsRef = useRef<[number, number]>(coordinates);
 
-export function PartyMarker({ nodeId, nodes }: PartyMarkerProps) {
-  const node = nodes.find((n) => n.id === nodeId);
-  if (!node) return null;
+  // Animate position changes
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (!marker) {
+      setDisplayPos(coordinates);
+      prevCoordsRef.current = coordinates;
+      return;
+    }
 
-  const position = pixelToLatLng(node.coordinates);
+    const startLatLng = marker.getLatLng();
+    const endLatLng = pixelToLatLng(coordinates);
+
+    if (
+      prevCoordsRef.current[0] === coordinates[0] &&
+      prevCoordsRef.current[1] === coordinates[1]
+    ) {
+      return;
+    }
+    prevCoordsRef.current = coordinates;
+
+    if (animFrameRef.current) {
+      cancelAnimationFrame(animFrameRef.current);
+    }
+
+    const duration = 500;
+    const startTime = performance.now();
+
+    function animate(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+
+      const lat = startLatLng.lat + (endLatLng.lat - startLatLng.lat) * ease;
+      const lng = startLatLng.lng + (endLatLng.lng - startLatLng.lng) * ease;
+      marker!.setLatLng([lat, lng]);
+
+      if (t < 1) {
+        animFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        setDisplayPos(coordinates);
+      }
+    }
+
+    animFrameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+    };
+  }, [coordinates[0], coordinates[1]]);
+
+  // Update icon when facing or image changes
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (marker) {
+      marker.setIcon(createGroupIcon(facingLeft, imageSrc, size, "party-icon"));
+    }
+  }, [facingLeft, imageSrc, size]);
+
+  const position = pixelToLatLng(displayPos);
 
   return (
-    <Marker position={position} icon={partyIcon} interactive={false} zIndexOffset={1000}>
-      <Tooltip direction="top" offset={[0, -PARTY_SIZE / 2]} className="gothic-tooltip">
+    <Marker
+      ref={markerRef}
+      position={position}
+      icon={createGroupIcon(facingLeft, imageSrc, size, "party-icon")}
+      interactive={false}
+      zIndexOffset={1000}
+    >
+      <Tooltip direction="top" offset={[0, -size / 2]} className="gothic-tooltip">
         <div className="font-cinzel text-sm font-bold text-[#f0e6d2]">
-          The Party
+          {label}
         </div>
       </Tooltip>
     </Marker>
