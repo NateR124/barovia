@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest strahd-timeline --typescript --tailwind --app --src-dir --eslint --no-turbopack --use-npm --import-alias \"@/*\")",
+      "Bash(npm install leaflet react-leaflet framer-motion react-markdown)",
+      "Bash(npm install -D @types/leaflet)",
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "Bash(npm run build)"
+    ]
+  }
+}

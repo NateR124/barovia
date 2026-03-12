@@ -138,6 +138,12 @@ body {
   }
 }
 
+/* Legend sparkle animation */
+.legend-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
 /* Gothic tooltip styling */
 .gothic-tooltip {
   background: rgba(26, 26, 26, 0.95) !important;

@@ -17,6 +17,7 @@ import { useMapControls } from "@/hooks/useMapControls";
 import { SidePanel } from "./SidePanel";
 import { PartyMarker } from "./PartyMarker";
 import { AlliesMarker } from "./AlliesMarker";
+import { MapLegend } from "./MapLegend";
 import type { Map as LeafletMap } from "leaflet";
 
 function MapRefSetter({
@@ -166,6 +167,7 @@ export function TimelineMap() {
       </MapContainer>
 
       <ZoomControls onZoomIn={zoomIn} onZoomOut={zoomOut} />
+      <MapLegend />
 
       <SidePanel
         node={selectedNode}

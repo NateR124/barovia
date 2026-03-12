@@ -12,13 +12,13 @@ interface MapNodeProps {
 }
 
 function createNodeIcon(isSelected: boolean): L.DivIcon {
-  const size = isSelected ? 24 : 20;
-  const borderColor = isSelected ? "#c9a84c" : "#8b7355";
-  const bgColor = isSelected ? "#c9a84c" : "#5c4a32";
-  const glowSize = isSelected ? 12 : 6;
+  const size = isSelected ? 28 : 24;
+  const borderColor = isSelected ? "#1a1200" : "#2a2010";
+  const bgColor = isSelected ? "#ffd700" : "#e8d08c";
+  const glowSize = isSelected ? 16 : 10;
   const glowColor = isSelected
-    ? "rgba(201, 168, 76, 0.7)"
-    : "rgba(201, 168, 76, 0.3)";
+    ? "rgba(255, 215, 0, 0.8)"
+    : "rgba(201, 168, 76, 0.5)";
 
   return L.divIcon({
     className: "custom-node-marker",
@@ -36,7 +36,7 @@ function createNodeIcon(isSelected: boolean): L.DivIcon {
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         ${isSelected ? "transform: scale(1.2);" : ""}
       " class="node-circle"
-         onmouseenter="this.style.transform='scale(1.3)'; this.style.boxShadow='0 0 16px rgba(201,168,76,0.8)';"
+         onmouseenter="this.style.transform='scale(1.3)'; this.style.boxShadow='0 0 20px rgba(255,215,0,0.9)';"
          onmouseleave="this.style.transform='${isSelected ? "scale(1.2)" : "scale(1)"}'; this.style.boxShadow='0 0 ${glowSize}px ${glowColor}';">
       </div>
     `,

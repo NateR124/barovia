@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Curse of Strahd - Campaign Timeline
+
+An interactive map tracking our party's journey through Barovia. Built with Next.js, Leaflet, and React.
+
+![Barovia Campaign Map](public/BaroviaPreview.jpg)
+
+## Features
+
+- Interactive map of Barovia with pan and zoom
+- Clickable location nodes with story summaries and session details
+- Rainbow-colored travel paths showing the party's journey in chronological order
+- Winding road paths that follow the actual trails on the map
+- Teleportation paths with animated sparkle effects
+- Party and ally location indicators
+- Side panel with detailed location write-ups and images
+- Gothic-themed UI with Cinzel Decorative and Spectral fonts
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the map.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+  app/          - Next.js app router, layout, and global styles
+  components/   - Map components (nodes, paths, markers, panels, legend)
+  hooks/        - Timeline and map control hooks
+  lib/          - Coordinate system utilities
+  types/        - TypeScript interfaces
+public/
+  data/         - Timeline JSON data (nodes, paths, campaign info)
+  images/       - Map, node thumbnails, character art
+```
 
-## Learn More
+## Adding Content
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **New locations**: Add a node to `public/data/timeline.json` with coordinates, title, summary, and images
+- **New paths**: Add a path entry with `from`/`to` node IDs and optional `waypoints` for winding roads
+- **Teleportation**: Set `"style": "teleport"` on a path for the sparkle effect
+- **Waypoints**: Use `?edit=true` query param to click the map and log pixel coordinates to the console
