@@ -122,14 +122,14 @@ export function TimelineMap() {
   // Get the party image for the current step from manifest
   const partyImageSrc = useMemo(() => {
     if (!manifest?.party) return "/images/characters/Party.png";
-    const entry = manifest.party[String(selectedStep)] as { image: string | null; location: string | null } | undefined;
+    const entry = manifest.party[String(selectedStep)];
     return entry?.image || "/images/characters/Party.png";
   }, [manifest, selectedStep]);
 
   // Get allies info for the current step
   const alliesInfoRaw = useMemo(() => {
     if (!manifest?.allies) return null;
-    const entry = manifest.allies[String(selectedStep)] as { image: string | null; location: string | null } | undefined;
+    const entry = manifest.allies[String(selectedStep)];
     if (!entry?.location) return null;
 
     const node = data?.nodes.find((n) => n.id === entry.location);

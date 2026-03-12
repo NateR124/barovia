@@ -45,8 +45,13 @@ export interface GroupDef {
   changes?: GroupChange[];
 }
 
+export interface GroupManifestEntry {
+  image: string | null;
+  location: string | null;
+}
+
 export interface GroupManifest {
-  [step: string]: string | null; // step number -> image URL or null
+  [step: string]: GroupManifestEntry;
 }
 
 export interface CampaignData {
