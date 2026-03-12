@@ -45,7 +45,7 @@ export function PartyMarker({
   facingLeft,
   imageSrc = "/images/characters/Party.png",
   label = "The Party",
-  size = 480,
+  size = 380,
 }: PartyMarkerProps) {
   const markerRef = useRef<L.Marker>(null);
   const animFrameRef = useRef<number>(0);

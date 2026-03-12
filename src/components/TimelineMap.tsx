@@ -288,7 +288,7 @@ export function TimelineMap() {
             facingLeft={true}
             imageSrc={alliesInfo.image}
             label="The Allies"
-            size={300}
+            size={240}
           />
         )}
       </MapContainer>

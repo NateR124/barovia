@@ -474,8 +474,13 @@ async function main() {
       continue;
     }
 
-    const result = await compositeGroup(members);
+    let result = await compositeGroup(members);
     if (result) {
+      // Trim transparent space to tighten the image around the characters
+      result = await sharp(result)
+        .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 0 })
+        .png()
+        .toBuffer();
       await writeFile(outputPath, result);
       console.log(`  ✓ ${filename} (${members.length} members${allResolved ? "" : ", partial"})`);
       generated.set(hash, filename);
