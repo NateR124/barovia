@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import type { PathSegment, TimelineNode } from "@/types/timeline";
+import { useEffect, useRef, useState, useMemo } from "react";
+import type { PathSegment, TimelineNode, NodePhoto } from "@/types/timeline";
 
 export interface JourneyEntry {
   title: string;
@@ -18,6 +18,7 @@ interface JourneyListProps {
   startingLevel?: number;
   selectedStep: number;
   onSelectStep: (step: number) => void;
+  onSelectPhoto?: (nodeId: string, photoIndex: number) => void;
 }
 
 function getRainbowColor(index: number, total: number): string {
@@ -76,6 +77,21 @@ function TeleportIcon({ color }: { color: string }) {
           style={{ animationDelay: `${i * 0.4}s` }}
         />
       ))}
+    </svg>
+  );
+}
+
+function CameraIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, opacity: 0.7 }}>
+      <path
+        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+        stroke="#6b5c3e"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="13" r="4" stroke="#6b5c3e" strokeWidth="2" />
     </svg>
   );
 }
@@ -143,6 +159,19 @@ function Legend() {
   );
 }
 
+/** Get photos visible at a given journey step for a node */
+function getPhotosForStep(node: TimelineNode, step: number): { photo: NodePhoto; globalIndex: number }[] {
+  const photos = node.photos ?? [];
+  const results: { photo: NodePhoto; globalIndex: number }[] = [];
+  for (let i = 0; i < photos.length; i++) {
+    const p = photos[i];
+    if (p.step === undefined || p.step === step) {
+      results.push({ photo: p, globalIndex: i });
+    }
+  }
+  return results;
+}
+
 export function buildJourneyEntries(
   paths: PathSegment[],
   nodes: TimelineNode[],
@@ -184,10 +213,11 @@ export function buildJourneyEntries(
   return entries;
 }
 
-export function JourneyList({ paths, nodes, startingLevel, selectedStep, onSelectStep }: JourneyListProps) {
+export function JourneyList({ paths, nodes, startingLevel, selectedStep, onSelectStep, onSelectPhoto }: JourneyListProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const entries = buildJourneyEntries(paths, nodes, startingLevel);
   const [collapsed, setCollapsed] = useState(false);
+  const nodeMap = useMemo(() => new Map(nodes.map((n) => [n.id, n])), [nodes]);
 
   // Scroll to bottom on mount
   useEffect(() => {
@@ -271,35 +301,109 @@ export function JourneyList({ paths, nodes, startingLevel, selectedStep, onSelec
               {entries.map((entry, i) => {
                 const isSelected = i === selectedStep;
                 const isDimmed = i > selectedStep;
+                const node = nodeMap.get(entry.nodeId);
+                const stepPhotos = node && isSelected ? getPhotosForStep(node, i) : [];
 
                 return (
-                  <div
-                    key={i}
-                    onClick={() => onSelectStep(i)}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      padding: "4px 0",
-                      cursor: "pointer",
-                      opacity: isDimmed ? 0.35 : 1,
-                      fontWeight: isSelected ? 700 : 400,
-                      transition: "opacity 0.3s ease",
-                    }}
-                  >
-                    {entry.isTeleport ? (
-                      <TeleportIcon color={entry.color} />
-                    ) : (
-                      <TravelIcon color={entry.color} />
-                    )}
-                    <span style={{ whiteSpace: "nowrap" }}>
-                      {entry.title}
-                      {entry.level != null && (
-                        <span style={{ opacity: 0.55, fontSize: 12, marginLeft: 4, fontWeight: 400 }}>
-                          (lv {entry.level})
-                        </span>
-                      )}
-                    </span>
+                  <div key={i}>
+                    <div
+                      onClick={() => onSelectStep(i)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                        padding: "4px 0",
+                        cursor: "pointer",
+                        opacity: isDimmed ? 0.35 : 1,
+                        fontWeight: isSelected ? 700 : 400,
+                        transition: "opacity 0.3s ease",
+                      }}
+                    >
+                      {/* Path icon — only visible when selected, slides in from left */}
+                      <div
+                        style={{
+                          overflow: "hidden",
+                          width: isSelected ? 36 : 0,
+                          opacity: isSelected ? 1 : 0,
+                          transition: "width 0.35s ease, opacity 0.25s ease",
+                          flexShrink: 0,
+                        }}
+                      >
+                        {entry.isTeleport ? (
+                          <TeleportIcon color={entry.color} />
+                        ) : (
+                          <TravelIcon color={entry.color} />
+                        )}
+                      </div>
+                      <span
+                        style={{
+                          whiteSpace: "nowrap",
+                          transform: isSelected ? "translateX(0)" : "translateX(-6px)",
+                          transition: "transform 0.35s ease",
+                        }}
+                      >
+                        {entry.title}
+                        {entry.level != null && (
+                          <span style={{ opacity: 0.55, fontSize: 12, marginLeft: 4, fontWeight: 400 }}>
+                            (lv {entry.level})
+                          </span>
+                        )}
+                      </span>
+                    </div>
+
+                    {/* Photo sublist — expands smoothly */}
+                    <div
+                      style={{
+                        overflow: "hidden",
+                        maxHeight: stepPhotos.length > 0 ? stepPhotos.length * 28 + 8 : 0,
+                        opacity: stepPhotos.length > 0 ? 1 : 0,
+                        transition: "max-height 0.35s ease, opacity 0.25s ease",
+                      }}
+                    >
+                      <div
+                        style={{
+                          marginLeft: 44,
+                          marginBottom: 4,
+                          borderLeft: "1px solid #a8987060",
+                          paddingLeft: 10,
+                        }}
+                      >
+                        {(node?.photos ?? []).map((photo, pi) => {
+                          if (photo.step !== undefined && photo.step !== i) return null;
+                          return (
+                            <div
+                              key={pi}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onSelectPhoto?.(entry.nodeId, pi);
+                              }}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 6,
+                                padding: "2px 0",
+                                cursor: "pointer",
+                                fontSize: 12,
+                                fontWeight: 400,
+                                opacity: 0.8,
+                                transition: "opacity 0.15s ease",
+                              }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLDivElement).style.opacity = "1";
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLDivElement).style.opacity = "0.8";
+                              }}
+                            >
+                              <CameraIcon />
+                              <span style={{ whiteSpace: "nowrap", fontStyle: "italic" }}>
+                                {photo.title}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 );
               })}

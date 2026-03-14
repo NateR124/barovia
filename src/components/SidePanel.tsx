@@ -11,6 +11,7 @@ interface SidePanelProps {
   onPrevious: () => void;
   hasNext: boolean;
   hasPrevious: boolean;
+  initialPhotoIndex?: number;
 }
 
 export function SidePanel({
@@ -20,14 +21,18 @@ export function SidePanel({
   onPrevious,
   hasNext,
   hasPrevious,
+  initialPhotoIndex,
 }: SidePanelProps) {
-  const images = node?.images?.length ? node.images : node ? [node.thumbnail] : [];
+  const photos = node?.photos ?? [];
+  const images = photos.length ? photos.map((p) => p.src) : node ? [node.thumbnail] : [];
   const [current, setCurrent] = useState(0);
 
-  // Reset to first image when the node changes
+  // Reset to first image (or initialPhotoIndex) when the node changes
   useEffect(() => {
-    setCurrent(0);
-  }, [node?.id]);
+    setCurrent(initialPhotoIndex ?? 0);
+  }, [node?.id, initialPhotoIndex]);
+
+  const currentTitle = photos[current]?.title;
 
   const goPrevImage = useCallback(
     (e: React.MouseEvent) => {
@@ -73,23 +78,23 @@ export function SidePanel({
             &times;
           </button>
 
-          {/* Image */}
+          {/* Image + title */}
           <motion.div
             key={node.id + "-" + current}
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.2 }}
-            className="relative flex items-center justify-center"
+            className="relative flex flex-col items-center justify-center"
             style={{ maxWidth: "100%", maxHeight: "100%" }}
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={images[current]}
-              alt={node.title}
+              alt={currentTitle ?? node.title}
               style={{
                 maxWidth: "90vw",
-                maxHeight: "85vh",
+                maxHeight: "80vh",
                 objectFit: "contain",
                 borderRadius: "6px",
                 boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
@@ -98,6 +103,19 @@ export function SidePanel({
                 (e.target as HTMLImageElement).style.display = "none";
               }}
             />
+            {currentTitle && (
+              <div
+                className="font-spectral text-[#f0e6d2] text-center"
+                style={{
+                  marginTop: "24px",
+                  fontSize: "clamp(14px, 2vw, 20px)",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.8)",
+                  opacity: 0.9,
+                }}
+              >
+                {currentTitle}
+              </div>
+            )}
           </motion.div>
 
           {/* Carousel controls */}

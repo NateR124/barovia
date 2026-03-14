@@ -1,10 +1,16 @@
+export interface NodePhoto {
+  src: string;
+  title: string;
+  step?: number; // journey entry index — for multi-visit locations
+}
+
 export interface TimelineNode {
   id: string;
   title: string;
   subtitle?: string;
   coordinates: [number, number]; // [x, y] pixel position on the map image
   thumbnail: string;
-  images?: string[];
+  photos?: NodePhoto[];
   summary: string;
   details?: string;
   sessionNumber?: number;

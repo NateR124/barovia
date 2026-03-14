@@ -98,6 +98,7 @@ export function TimelineMap() {
   }, [data]);
 
   const [selectedStep, setSelectedStep] = useState(-1);
+  const [initialPhotoIndex, setInitialPhotoIndex] = useState<number | undefined>(undefined);
 
   // Initialize to last step once data loads
   useEffect(() => {
@@ -301,15 +302,29 @@ export function TimelineMap() {
         startingLevel={data.campaign.startingLevel}
         selectedStep={selectedStep}
         onSelectStep={setSelectedStep}
+        onSelectPhoto={(nodeId, photoIndex) => {
+          setInitialPhotoIndex(photoIndex);
+          selectNode(nodeId);
+        }}
       />
 
       <SidePanel
         node={selectedNode}
-        onClose={() => selectNode(null)}
-        onNext={goToNext}
-        onPrevious={goToPrevious}
+        onClose={() => {
+          selectNode(null);
+          setInitialPhotoIndex(undefined);
+        }}
+        onNext={() => {
+          setInitialPhotoIndex(undefined);
+          goToNext();
+        }}
+        onPrevious={() => {
+          setInitialPhotoIndex(undefined);
+          goToPrevious();
+        }}
         hasNext={hasNext}
         hasPrevious={hasPrevious}
+        initialPhotoIndex={initialPhotoIndex}
       />
 
     </div>

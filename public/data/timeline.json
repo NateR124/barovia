@@ -10,7 +10,8 @@
         "assets": [
           "kaelem/kaelem_1.png",
           "kaelem/kaelem_2.png",
-          "kaelem/kaelem_3.png"
+          "kaelem/kaelem_3.png",
+          "kaelem/kaelem_4.png"
         ],
         "yOffset": 30,
         "order": 3
@@ -50,7 +51,8 @@
         "assets": [
           "darian/darian_1.png",
           "darian/darian_2.png",
-          "darian/darian_3.png"
+          "darian/darian_3.png",
+          "darian/darian_4.png"
         ],
         "scale": 0.9,
         "order": 4
@@ -283,7 +285,7 @@
               },
               {
                 "id": "darian",
-                "variant": 2
+                "variant": 3
               },
               {
                 "id": "evelina",
@@ -291,7 +293,7 @@
               },
               {
                 "id": "kaelem",
-                "variant": 2
+                "variant": 3
               },
               {
                 "id": "puppet",
@@ -312,7 +314,7 @@
               },
               {
                 "id": "darian",
-                "variant": 2
+                "variant": 3
               },
               {
                 "id": "evelina",
@@ -320,7 +322,7 @@
               },
               {
                 "id": "kaelem",
-                "variant": 2
+                "variant": 3
               },
               {
                 "id": "puppet",
@@ -345,7 +347,7 @@
               },
               {
                 "id": "darian",
-                "variant": 2
+                "variant": 3
               },
               {
                 "id": "evelina",
@@ -353,7 +355,7 @@
               },
               {
                 "id": "kaelem",
-                "variant": 2
+                "variant": 3
               },
               {
                 "id": "puppet",
@@ -401,10 +403,13 @@
         549
       ],
       "thumbnail": "/images/nodes/barovian-gates.png",
-      "images": [
-        "/images/nodes/barovian-gates.png"
-      ],
-      "summary": "The party passed through the towering iron gates into the mist-shrouded land of Barovia. The gates swung shut behind them — there would be no easy escape."
+      "summary": "The party passed through the towering iron gates into the mist-shrouded land of Barovia. The gates swung shut behind them — there would be no easy escape.",
+      "photos": [
+        {
+          "src": "/images/nodes/barovian-gates.png",
+          "title": "A mysterious ally"
+        }
+      ]
     },
     {
       "id": "death-house",
@@ -414,11 +419,14 @@
         627
       ],
       "thumbnail": "/images/nodes/death-house.png",
-      "images": [
-        "/images/nodes/death-house.png"
-      ],
       "summary": "The party arrived in the Village of Barovia, drawn by a mysterious letter. They explored the haunted Death House, uncovering the dark secrets of the Durst family and surviving the horrors within its depths.",
-      "details": "## Death House\n\nA crumbling manor on the outskirts of the Village of Barovia. Rose and Thorn Durst — ghostly children — lured the party inside, begging for help against the \"monster in the basement.\"\n\nThe house itself was a living trap: animated armor, spectral servants, and a cult ritual chamber buried deep below. The party fought their way through and destroyed the shambling mound that served as the cult's failed sacrifice.\n\nAs they escaped, the house itself tried to consume them — walls closing in, poison gas filling the halls. They barely made it out alive."
+      "details": "## Death House\n\nA crumbling manor on the outskirts of the Village of Barovia. Rose and Thorn Durst — ghostly children — lured the party inside, begging for help against the \"monster in the basement.\"\n\nThe house itself was a living trap: animated armor, spectral servants, and a cult ritual chamber buried deep below. The party fought their way through and destroyed the shambling mound that served as the cult's failed sacrifice.\n\nAs they escaped, the house itself tried to consume them — walls closing in, poison gas filling the halls. They barely made it out alive.",
+      "photos": [
+        {
+          "src": "/images/nodes/death-house.png",
+          "title": "Jukebox Skeleton"
+        }
+      ]
     },
     {
       "id": "village-of-barovia",
@@ -428,12 +436,18 @@
         620
       ],
       "thumbnail": "/images/nodes/village-of-barovia.png",
-      "images": [
-        "/images/nodes/village-of-barovia.png",
-        "/images/nodes/village-of-barovia-2.png"
-      ],
       "summary": "The party explored the somber village, met Ismark and Ireena Kolyana, and learned of Strahd's obsession. They agreed to escort Ireena to safety in Vallaki.",
-      "details": "## Village of Barovia\n\nA gloomy settlement under Strahd's shadow. The party visited the Blood of the Vine tavern, met Ismark the Lesser, and visited the burgomaster's mansion where his father lay dead.\n\nThey performed the burial at the village church with Father Donavich, whose son Doru — now a vampire spawn — was locked in the undercroft below.\n\nIreena Kolyana joined the party, hoping to escape Strahd's relentless pursuit."
+      "details": "## Village of Barovia\n\nA gloomy settlement under Strahd's shadow. The party visited the Blood of the Vine tavern, met Ismark the Lesser, and visited the burgomaster's mansion where his father lay dead.\n\nThey performed the burial at the village church with Father Donavich, whose son Doru — now a vampire spawn — was locked in the undercroft below.\n\nIreena Kolyana joined the party, hoping to escape Strahd's relentless pursuit.",
+      "photos": [
+        {
+          "src": "/images/nodes/village-of-barovia.png",
+          "title": "Ismark's admirer"
+        },
+        {
+          "src": "/images/nodes/village-of-barovia-2.png",
+          "title": "Ismark's admirer (v2)"
+        }
+      ]
     },
     {
       "id": "tser-pool",
@@ -443,10 +457,13 @@
         608
       ],
       "thumbnail": "/images/nodes/tser-falls.png",
-      "images": [
-        "/images/nodes/tser-falls.png"
-      ],
-      "summary": "The party traveled past the towering Tser Falls, crossing the high bridge above the churning river below. A harrowing crossing with breathtaking — and terrifying — views."
+      "summary": "The party traveled past the towering Tser Falls, crossing the high bridge above the churning river below. A harrowing crossing with breathtaking — and terrifying — views.",
+      "photos": [
+        {
+          "src": "/images/nodes/tser-falls.png",
+          "title": "An early grave"
+        }
+      ]
     },
     {
       "id": "vallaki",
@@ -456,12 +473,20 @@
         337
       ],
       "thumbnail": "/images/nodes/vallaki-1.png",
-      "images": [
-        "/images/nodes/vallaki-1.png",
-        "/images/nodes/vallaki-2.png"
-      ],
       "summary": "The walled town of Vallaki — where the Baron enforced mandatory festivals of happiness. Political intrigue, the Festival of the Blazing Sun, and encounters with Lady Wachter's dark cult.",
-      "details": "## Town of Vallaki\n\nBaron Vallakovich ruled the town with delusional optimism, forcing citizens into weekly festivals. \"All will be well\" was the town's hollow motto.\n\nThe party navigated complex political tensions between the Baron, Lady Fiona Wachter (who secretly worshipped devils), and the various factions within the town walls.\n\nKey events: the Festival of the Blazing Sun, the recovery of the bones of St. Andral, and a tense encounter with Strahd himself at the town gates."
+      "details": "## Town of Vallaki\n\nBaron Vallakovich ruled the town with delusional optimism, forcing citizens into weekly festivals. \"All will be well\" was the town's hollow motto.\n\nThe party navigated complex political tensions between the Baron, Lady Fiona Wachter (who secretly worshipped devils), and the various factions within the town walls.\n\nKey events: the Festival of the Blazing Sun, the recovery of the bones of St. Andral, and a tense encounter with Strahd himself at the town gates.",
+      "photos": [
+        {
+          "src": "/images/nodes/vallaki-1.png",
+          "title": "\"Let's open it!\"",
+          "step": 4
+        },
+        {
+          "src": "/images/nodes/vallaki-2.png",
+          "title": "\"Is he cut?\"",
+          "step": 4
+        }
+      ]
     },
     {
       "id": "old-bonegrinder",
@@ -471,11 +496,14 @@
         382
       ],
       "thumbnail": "/images/nodes/old-bonegrinder.png",
-      "images": [
-        "/images/nodes/old-bonegrinder.png"
-      ],
       "summary": "The old windmill turned out to be the lair of a coven of night hags who were grinding children's bones into dream pastries. A deadly confrontation ensued.",
-      "details": "## Old Bonegrinder\n\nMorgantha and her daughters Bella and Offalia had been selling dream pastries to the desperate villagers — pastries made from the bones of kidnapped children.\n\nThe party discovered their horrific operation and fought the hag coven. The battle was nearly fatal, as the hags' combined magic proved devastating."
+      "details": "## Old Bonegrinder\n\nMorgantha and her daughters Bella and Offalia had been selling dream pastries to the desperate villagers — pastries made from the bones of kidnapped children.\n\nThe party discovered their horrific operation and fought the hag coven. The battle was nearly fatal, as the hags' combined magic proved devastating.",
+      "photos": [
+        {
+          "src": "/images/nodes/old-bonegrinder.png",
+          "title": "Nighthag Sandwich"
+        }
+      ]
     },
     {
       "id": "van-richtens-tower",
@@ -485,12 +513,24 @@
         288
       ],
       "thumbnail": "/images/nodes/van-richtens-tower.png",
-      "images": [
-        "/images/nodes/van-richtens-tower.png",
-        "/images/nodes/van-richtens-tower-2.png",
-        "/images/nodes/van-richtens-tower-3.png"
-      ],
-      "summary": "A crumbling tower near Lake Baratok where the legendary vampire hunter Rudolph van Richten had been hiding. The party found clues to his identity and his anti-Strahd research."
+      "summary": "A crumbling tower near Lake Baratok where the legendary vampire hunter Rudolph van Richten had been hiding. The party found clues to his identity and his anti-Strahd research.",
+      "photos": [
+        {
+          "src": "/images/nodes/van-richtens-tower-2.png",
+          "title": "Cramped Confrontation",
+          "step": 7
+        },
+        {
+          "src": "/images/nodes/van-richtens-tower-3.png",
+          "title": "Princess Carry",
+          "step": 7
+        },
+        {
+          "src": "/images/nodes/van-richtens-tower.png",
+          "title": "Phillipe emerges",
+          "step": 20
+        }
+      ]
     },
     {
       "id": "wizard-of-wines",
@@ -500,13 +540,20 @@
         487
       ],
       "thumbnail": "/images/nodes/wizard-of-wines-1.png",
-      "images": [
-        "/images/nodes/wizard-of-wines-1.png",
-        "/images/nodes/wizard-of-wines-2.png",
-        "/images/nodes/wizard-of-wines-3.png"
-      ],
       "summary": "The Martikov family's winery had been overrun by druids and blights. The party cleared the infestation and learned that the magic gems powering the vineyard had been stolen.",
-      "details": "## Wizard of Wines\n\nThe Martikovs — secretly wereravens of the Keepers of the Feather — asked for help reclaiming their winery from the Forest Folk.\n\nDruids from Yester Hill had sent wave after wave of twig blights to overwhelm the winery. The party fought through the infestation and discovered that the druids had stolen the enchanted gems that made the wine magical."
+      "details": "## Wizard of Wines\n\nThe Martikovs — secretly wereravens of the Keepers of the Feather — asked for help reclaiming their winery from the Forest Folk.\n\nDruids from Yester Hill had sent wave after wave of twig blights to overwhelm the winery. The party fought through the infestation and discovered that the druids had stolen the enchanted gems that made the wine magical.",
+      "photos": [
+        {
+          "src": "/images/nodes/wizard-of-wines-2.png",
+          "title": "On his own adventure",
+          "step": 8
+        },
+        {
+          "src": "/images/nodes/wizard-of-wines-3.png",
+          "title": "Sidekicks Assemble",
+          "step": 18
+        }
+      ]
     },
     {
       "id": "yester-hill",
@@ -516,10 +563,13 @@
         631
       ],
       "thumbnail": "/images/nodes/yester-hill.png",
-      "images": [
-        "/images/nodes/yester-hill.png"
-      ],
-      "summary": "A sacred hill where the Forest Folk performed dark rituals. The party disrupted the druids' attempt to bring a massive tree blight to life using one of the stolen winery gems."
+      "summary": "A sacred hill where the Forest Folk performed dark rituals. The party disrupted the druids' attempt to bring a massive tree blight to life using one of the stolen winery gems.",
+      "photos": [
+        {
+          "src": "/images/nodes/yester-hill.png",
+          "title": "Battle on the hill"
+        }
+      ]
     },
     {
       "id": "krezk",
@@ -529,11 +579,17 @@
         289
       ],
       "thumbnail": "/images/nodes/krezk.png",
-      "images": [
-        "/images/nodes/krezk.png",
-        "/images/nodes/krezk-2.png"
-      ],
-      "summary": "A walled village at the base of the mountains, ruled by the reclusive Burgomaster Krezkov. The party visited the Shrine of the White Sun, where a mysterious pool reflected visions."
+      "summary": "A walled village at the base of the mountains, ruled by the reclusive Burgomaster Krezkov. The party visited the Shrine of the White Sun, where a mysterious pool reflected visions.",
+      "photos": [
+        {
+          "src": "/images/nodes/krezk.png",
+          "title": "Aurora's new startup (v1)"
+        },
+        {
+          "src": "/images/nodes/krezk-2.png",
+          "title": "Aurora's new startup (v2)"
+        }
+      ]
     },
     {
       "id": "castle-ravenloft",
@@ -543,12 +599,18 @@
         511
       ],
       "thumbnail": "/images/nodes/castle-ravenloft.png",
-      "images": [
-        "/images/nodes/castle-ravenloft.png",
-        "/images/nodes/castle-ravenloft-2.png"
-      ],
       "summary": "The party stormed Strahd's ancient castle, navigating its endless halls, traps, and servants to face the vampire lord himself.",
-      "details": "## Castle Ravenloft\n\nThe towering castle loomed over all of Barovia — Strahd's eternal prison and throne. The party entered through the front gates, armed with the artifacts foretold by Madam Eva.\n\nThey navigated the castle's labyrinthine halls: the grand dining room where Strahd awaited, the catacombs below, the towers above, and the heart of sorrow that powered the castle's dark magic.\n\nThe final battle with Strahd von Zarovich tested everything the party had learned and gained throughout their journey through his domain."
+      "details": "## Castle Ravenloft\n\nThe towering castle loomed over all of Barovia — Strahd's eternal prison and throne. The party entered through the front gates, armed with the artifacts foretold by Madam Eva.\n\nThey navigated the castle's labyrinthine halls: the grand dining room where Strahd awaited, the catacombs below, the towers above, and the heart of sorrow that powered the castle's dark magic.\n\nThe final battle with Strahd von Zarovich tested everything the party had learned and gained throughout their journey through his domain.",
+      "photos": [
+        {
+          "src": "/images/nodes/castle-ravenloft.png",
+          "title": "Strahd's Dinner"
+        },
+        {
+          "src": "/images/nodes/castle-ravenloft-2.png",
+          "title": "One of us can fly"
+        }
+      ]
     },
     {
       "id": "amber-temple",
@@ -558,13 +620,22 @@
         849
       ],
       "thumbnail": "/images/nodes/amber-temple.png",
-      "images": [
-        "/images/nodes/amber-temple.png",
-        "/images/nodes/amber-temple-2.png",
-        "/images/nodes/amber-temple-3.png"
-      ],
       "summary": "An ancient temple sealed within Mount Ghakis, housing dark vestiges that offered forbidden power. This is where Strahd himself first made his pact with darkness.",
-      "details": "## Amber Temple\n\nThe most dangerous location in all of Barovia. Ancient sarcophagi held vestiges of dead dark powers, each whispering offers of immense gifts in exchange for corruption.\n\nThe party braved the temple's guardians — flameskulls, amber golems, and arcanaloth — and faced the terrible temptation of the dark gifts. Some accepted. Some refused.\n\nHere they learned the true origin of Strahd's vampirism and found critical artifacts for the final confrontation."
+      "details": "## Amber Temple\n\nThe most dangerous location in all of Barovia. Ancient sarcophagi held vestiges of dead dark powers, each whispering offers of immense gifts in exchange for corruption.\n\nThe party braved the temple's guardians — flameskulls, amber golems, and arcanaloth — and faced the terrible temptation of the dark gifts. Some accepted. Some refused.\n\nHere they learned the true origin of Strahd's vampirism and found critical artifacts for the final confrontation.",
+      "photos": [
+        {
+          "src": "/images/nodes/amber-temple.png",
+          "title": "Amber Deal"
+        },
+        {
+          "src": "/images/nodes/amber-temple-2.png",
+          "title": "A new friend (v1)"
+        },
+        {
+          "src": "/images/nodes/amber-temple-3.png",
+          "title": "A new friend (v2)"
+        }
+      ]
     },
     {
       "id": "tsolenka-pass",
@@ -574,10 +645,13 @@
         748
       ],
       "thumbnail": "/images/nodes/tsolenka-pass.png",
-      "images": [
-        "/images/nodes/tsolenka-pass.png"
-      ],
-      "summary": "A treacherous mountain pass guarded by stone guardians and bitter cold. The party navigated the narrow bridge and the dangers of Mount Ghakis on their descent."
+      "summary": "A treacherous mountain pass guarded by stone guardians and bitter cold. The party navigated the narrow bridge and the dangers of Mount Ghakis on their descent.",
+      "photos": [
+        {
+          "src": "/images/nodes/tsolenka-pass.png",
+          "title": "The night sky is moving"
+        }
+      ]
     },
     {
       "id": "berez",
@@ -587,11 +661,17 @@
         611
       ],
       "thumbnail": "/images/nodes/berez-1.png",
-      "images": [
-        "/images/nodes/berez-1.png",
-        "/images/nodes/berez-2.png"
-      ],
-      "summary": "A sunken, swampy ruin that was once a thriving village. Baba Lysaga, Strahd's self-proclaimed mother, lurked here with her creeping hut and swarms of enchanted scarecrows."
+      "summary": "A sunken, swampy ruin that was once a thriving village. Baba Lysaga, Strahd's self-proclaimed mother, lurked here with her creeping hut and swarms of enchanted scarecrows.",
+      "photos": [
+        {
+          "src": "/images/nodes/berez-1.png",
+          "title": "Creeping Hut"
+        },
+        {
+          "src": "/images/nodes/berez-2.png",
+          "title": "Eldritch Fingerguns"
+        }
+      ]
     },
     {
       "id": "argynvostholt",
@@ -601,14 +681,26 @@
         490
       ],
       "thumbnail": "/images/nodes/argynvostholt-1.png",
-      "images": [
-        "/images/nodes/argynvostholt-1.png",
-        "/images/nodes/argynvostholt-2.png",
-        "/images/nodes/argynvostholt-3.png",
-        "/images/nodes/argynvostholt-4.png"
-      ],
       "summary": "The ruined manor of the Order of the Silver Dragon. The party encountered the revenants of fallen knights and sought the beacon that could restore hope to the land.",
-      "details": "## Argynvostholt\n\nOnce home to the silver dragon Argynvost and his order of knights, this manor now lay in ruins. The revenants of the fallen knights still patrolled the halls, bound by their oath.\n\nCommander Vladimir Horngaard, consumed by hatred for Strahd, refused to let anyone defeat the vampire — preferring that Strahd suffer eternally in his prison of Barovia.\n\nThe party searched for the skull of Argynvost, whose return could light the beacon and bring hope."
+      "details": "## Argynvostholt\n\nOnce home to the silver dragon Argynvost and his order of knights, this manor now lay in ruins. The revenants of the fallen knights still patrolled the halls, bound by their oath.\n\nCommander Vladimir Horngaard, consumed by hatred for Strahd, refused to let anyone defeat the vampire — preferring that Strahd suffer eternally in his prison of Barovia.\n\nThe party searched for the skull of Argynvost, whose return could light the beacon and bring hope.",
+      "photos": [
+        {
+          "src": "/images/nodes/argynvostholt-1.png",
+          "title": "Dead on arrival"
+        },
+        {
+          "src": "/images/nodes/argynvostholt-2.png",
+          "title": "Sootfro"
+        },
+        {
+          "src": "/images/nodes/argynvostholt-3.png",
+          "title": "Shattered Chandelier"
+        },
+        {
+          "src": "/images/nodes/argynvostholt-4.png",
+          "title": "Lightning Bolt"
+        }
+      ]
     },
     {
       "id": "lake-zarovich",
@@ -618,10 +710,13 @@
         291
       ],
       "thumbnail": "/images/nodes/lake-zarovich.png",
-      "images": [
-        "/images/nodes/lake-zarovich.png"
-      ],
-      "summary": "The vast, chilly expanse of Lake Zarovich."
+      "summary": "The vast, chilly expanse of Lake Zarovich.",
+      "photos": [
+        {
+          "src": "/images/nodes/lake-zarovich.png",
+          "title": "Submerge"
+        }
+      ]
     }
   ],
   "paths": [
