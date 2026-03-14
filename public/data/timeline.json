@@ -13,8 +13,10 @@
           "kaelem/kaelem_3.png",
           "kaelem/kaelem_4.png"
         ],
-        "yOffset": 30,
-        "order": 3
+        "yOffset": 65,
+        "order": 3,
+        "scale": 1,
+        "xOffset": -150
       },
       "puppet": {
         "name": "Puppet",
@@ -24,7 +26,7 @@
           "puppet/puppet_3.png"
         ],
         "flip": true,
-        "scale": 0.35,
+        "scale": 0.55,
         "order": 2
       },
       "evelina": {
@@ -33,7 +35,9 @@
           "evelina/evelina_1.png",
           "evelina/evelina_2.png"
         ],
-        "order": 1
+        "order": 1,
+        "scale": 0.8,
+        "yOffset": 5
       },
       "aurora": {
         "name": "Aurora",
@@ -43,8 +47,9 @@
           "aurora/aurora_3.png"
         ],
         "flip": true,
-        "scale": 0.75,
-        "order": 0
+        "scale": 0.85,
+        "order": 0,
+        "yOffset": 5
       },
       "darian": {
         "name": "Darian",
@@ -55,7 +60,8 @@
           "darian/darian_4.png"
         ],
         "scale": 0.9,
-        "order": 4
+        "order": 4,
+        "yOffset": 10
       },
       "dog": {
         "name": "Dog",
@@ -63,8 +69,9 @@
           "dog/dog_1.png",
           "dog/dog_2.png"
         ],
-        "scale": 0.65,
-        "order": 5
+        "scale": 0.55,
+        "order": 5,
+        "yOffset": 10
       },
       "armor": {
         "name": "Armor",
@@ -72,16 +79,18 @@
           "armor/armor_1.png"
         ],
         "flip": true,
-        "scale": 0.7,
-        "order": 6
+        "scale": 0.9,
+        "order": 6,
+        "yOffset": 20
       },
       "phillipe": {
         "name": "Phillipe",
         "assets": [
           "phillipe/phillipe_1.png"
         ],
-        "scale": 0.8,
-        "order": 7
+        "scale": 1,
+        "order": 7,
+        "yOffset": 30
       },
       "godfrey": {
         "name": "Godfrey",
@@ -89,7 +98,7 @@
           "godfrey/godfrey_1.png"
         ],
         "flip": true,
-        "scale": 0.75,
+        "scale": 0.85,
         "order": 8
       }
     },

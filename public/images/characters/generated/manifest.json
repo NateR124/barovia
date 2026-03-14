@@ -1,95 +1,95 @@
 {
   "party": {
     "0": {
-      "image": "/images/characters/generated/party_4c9489b37bea.png",
+      "image": "/images/characters/generated/party_1a799617d53f.png",
       "location": null
     },
     "1": {
-      "image": "/images/characters/generated/party_cc35bebc18e9.png",
+      "image": "/images/characters/generated/party_73a3d17e0451.png",
       "location": null
     },
     "2": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "3": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "4": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "5": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "6": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "7": {
-      "image": "/images/characters/generated/party_4809430a7244.png",
+      "image": "/images/characters/generated/party_e65198a9766b.png",
       "location": null
     },
     "8": {
-      "image": "/images/characters/generated/party_4809430a7244.png",
+      "image": "/images/characters/generated/party_e65198a9766b.png",
       "location": null
     },
     "9": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "10": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "11": {
-      "image": "/images/characters/generated/party_703158d77a3f.png",
+      "image": "/images/characters/generated/party_fb6cf0e7597d.png",
       "location": null
     },
     "12": {
-      "image": "/images/characters/generated/party_0b4982103de5.png",
+      "image": "/images/characters/generated/party_db6a5170fdac.png",
       "location": null
     },
     "13": {
-      "image": "/images/characters/generated/party_cfc185c767c0.png",
+      "image": "/images/characters/generated/party_2605d48192d9.png",
       "location": null
     },
     "14": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     },
     "15": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     },
     "16": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     },
     "17": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     },
     "18": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     },
     "19": {
-      "image": "/images/characters/generated/party_a90c5d651ce3.png",
+      "image": "/images/characters/generated/party_0ab7852e45c5.png",
       "location": null
     },
     "20": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     },
     "21": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     },
     "22": {
-      "image": "/images/characters/generated/party_19300be4b6ff.png",
+      "image": "/images/characters/generated/party_4a26a97b66e4.png",
       "location": null
     }
   },
@@ -175,15 +175,15 @@
       "location": null
     },
     "20": {
-      "image": "/images/characters/generated/allies_eef186b088d0.png",
+      "image": "/images/characters/generated/allies_8076336ed9f8.png",
       "location": "van-richtens-tower"
     },
     "21": {
-      "image": "/images/characters/generated/allies_eef186b088d0.png",
+      "image": "/images/characters/generated/allies_8076336ed9f8.png",
       "location": "van-richtens-tower"
     },
     "22": {
-      "image": "/images/characters/generated/allies_eef186b088d0.png",
+      "image": "/images/characters/generated/allies_8076336ed9f8.png",
       "location": "van-richtens-tower"
     }
   }

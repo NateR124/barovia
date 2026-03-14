@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Character Scale Tuner</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; color: #e0d6c2; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+
+  .arena {
+    flex: 1;
+    position: relative;
+    background: #111;
+    overflow: hidden;
+  }
+
+  .ground-line {
+    position: absolute;
+    bottom: 60px;
+    left: 0; right: 0;
+    height: 1px;
+    background: #444;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .char-slot {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+    z-index: 1;
+  }
+
+  .char-slot:active { cursor: grabbing; }
+
+  .char-slot img {
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+    pointer-events: none;
+  }
+
+  .char-slot.selected { z-index: 10; }
+
+  .char-slot.selected img {
+    outline: 2px solid #c9a84c;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .char-label {
+    font-size: 11px;
+    margin-top: 4px;
+    opacity: 0.6;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .sidebar {
+    width: 340px;
+    background: #222;
+    border-left: 1px solid #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  h2 { font-size: 18px; color: #c9a84c; }
+  h3 { font-size: 13px; color: #aaa; margin-bottom: 4px; }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .slider-row label {
+    width: 55px;
+    font-size: 12px;
+    color: #888;
+    flex-shrink: 0;
+  }
+
+  .slider-row input[type=range] {
+    flex: 1;
+    accent-color: #c9a84c;
+  }
+
+  .slider-row .val {
+    width: 45px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    font-weight: bold;
+    color: #c9a84c;
+  }
+
+  .char-name-selected {
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .output-box {
+    background: #111;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Consolas', monospace;
+    font-size: 11px;
+    white-space: pre;
+    cursor: pointer;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .output-box:hover { border-color: #c9a84c; }
+
+  .copied-toast {
+    position: absolute;
+    top: -24px;
+    right: 0;
+    font-size: 11px;
+    color: #4caf50;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .copied-toast.show { opacity: 1; }
+
+  .presets { display: flex; gap: 6px; flex-wrap: wrap; }
+  .presets button {
+    background: #333;
+    color: #ccc;
+    border: 1px solid #555;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+  }
+  .presets button:hover { background: #444; border-color: #c9a84c; }
+
+  .btn {
+    background: #c9a84c;
+    color: #1a1a1a;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  .btn:hover { background: #dfc06a; }
+</style>
+</head>
+<body>
+
+<div class="arena" id="arena">
+  <div class="ground-line"></div>
+</div>
+
+<div class="sidebar">
+  <h2>Scale Tuner</h2>
+
+  <div>
+    <div class="char-name-selected" id="selectedName">Select a character</div>
+  </div>
+
+  <div>
+    <h3>Scale</h3>
+    <div class="slider-row">
+      <label>scale</label>
+      <input type="range" id="scaleSlider" min="0.1" max="1.5" step="0.05" value="1" disabled>
+      <div class="val" id="scaleVal">1.00</div>
+    </div>
+    <div class="presets" style="margin-top:6px">
+      <button onclick="setScale(0.3)">0.3</button>
+      <button onclick="setScale(0.45)">0.45</button>
+      <button onclick="setScale(0.55)">0.55</button>
+      <button onclick="setScale(0.65)">0.65</button>
+      <button onclick="setScale(0.75)">0.75</button>
+      <button onclick="setScale(0.85)">0.85</button>
+      <button onclick="setScale(0.9)">0.9</button>
+      <button onclick="setScale(1.0)">1.0</button>
+      <button onclick="setScale(1.1)">1.1</button>
+    </div>
+  </div>
+
+  <div>
+    <h3>Offsets</h3>
+    <div class="slider-row">
+      <label>xOffset</label>
+      <input type="range" id="xOffsetSlider" min="-100" max="100" step="5" value="0" disabled>
+      <div class="val" id="xOffsetVal">0</div>
+    </div>
+    <div class="slider-row">
+      <label>yOffset</label>
+      <input type="range" id="yOffsetSlider" min="-100" max="100" step="5" value="0" disabled>
+      <div class="val" id="yOffsetVal">0</div>
+    </div>
+  </div>
+
+  <div>
+    <button class="btn" onclick="resetPositions()">Reset Positions</button>
+  </div>
+
+  <div>
+    <h3>All values (click to copy)</h3>
+    <div style="position:relative">
+      <div class="output-box" id="output" onclick="copyOutput()"></div>
+      <div class="copied-toast" id="toast">Copied!</div>
+    </div>
+  </div>
+
+  <div style="margin-top:auto; font-size:11px; opacity:0.5;">
+    Drag characters up/down to compare.<br>
+    Click to select, sliders to adjust.<br>
+    Offsets shift position in the party composite.
+  </div>
+</div>
+
+<script>
+const BASE_HEIGHT_PX = 350;
+const GROUND_Y = 60;
+
+let characters = {};
+let naturalSizes = {};
+let scales = {};
+let xOffsets = {};
+let yOffsets = {};
+let positions = {};
+let selected = null;
+
+let dragging = null;
+let dragStartY = 0;
+let dragOrigYOffset = 0;
+
+async function init() {
+  const res = await fetch('/data/timeline.json');
+  const data = await res.json();
+  characters = data.campaign.characters;
+
+  const arena = document.getElementById('arena');
+  const ids = Object.keys(characters);
+  const arenaW = arena.offsetWidth;
+  const spacing = arenaW / (ids.length + 1);
+
+  const loadPromises = ids.map(id => {
+    const def = characters[id];
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        naturalSizes[id] = { w: img.naturalWidth, h: img.naturalHeight };
+        resolve();
+      };
+      img.onerror = () => {
+        naturalSizes[id] = { w: 100, h: 100 };
+        resolve();
+      };
+      img.src = `/images/characters/${def.assets[0]}`;
+    });
+  });
+  await Promise.all(loadPromises);
+
+  for (let i = 0; i < ids.length; i++) {
+    const id = ids[i];
+    const def = characters[id];
+    scales[id] = def.scale || 1.0;
+    xOffsets[id] = def.xOffset || 0;
+    yOffsets[id] = def.yOffset || 0;
+    positions[id] = { x: spacing * (i + 1), dragY: 0 };
+
+    const slot = document.createElement('div');
+    slot.className = 'char-slot';
+    slot.dataset.id = id;
+    slot.id = `slot-${id}`;
+
+    const img = document.createElement('img');
+    img.src = `/images/characters/${def.assets[0]}`;
+    img.id = `img-${id}`;
+    setSizeFromScale(img, id, scales[id]);
+
+    const label = document.createElement('div');
+    label.className = 'char-label';
+    label.id = `label-${id}`;
+    label.textContent = id;
+
+    slot.appendChild(img);
+    slot.appendChild(label);
+    arena.appendChild(slot);
+
+    positionSlot(id);
+
+    slot.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      selectChar(id);
+      dragging = id;
+      dragStartY = e.clientY;
+      dragOrigYOffset = positions[id].dragY;
+    });
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    const dy = dragStartY - e.clientY;
+    positions[dragging].dragY = dragOrigYOffset + dy;
+    positionSlot(dragging);
+  });
+
+  document.addEventListener('mouseup', () => {
+    dragging = null;
+  });
+
+  updateOutput();
+  selectChar(ids[0]);
+}
+
+function setSizeFromScale(img, id, scale) {
+  const nat = naturalSizes[id];
+  const h = BASE_HEIGHT_PX * scale;
+  const w = (nat.w / nat.h) * h;
+  img.style.width = `${w}px`;
+  img.style.height = `${h}px`;
+}
+
+function positionSlot(id) {
+  const slot = document.getElementById(`slot-${id}`);
+  const x = positions[id].x + (xOffsets[id] || 0);
+  const dragY = positions[id].dragY;
+  // yOffset positive = down in composite, so invert for visual (subtract to move down)
+  const yOff = -(yOffsets[id] || 0);
+
+  slot.style.left = `${x}px`;
+  slot.style.bottom = `${GROUND_Y + dragY + yOff}px`;
+  slot.style.transform = 'translateX(-50%)';
+}
+
+function selectChar(id) {
+  selected = id;
+
+  document.querySelectorAll('.char-slot').forEach(el => {
+    el.classList.toggle('selected', el.dataset.id === id);
+  });
+
+  document.getElementById('selectedName').textContent = id;
+
+  const scaleSlider = document.getElementById('scaleSlider');
+  scaleSlider.disabled = false;
+  scaleSlider.value = scales[id];
+  document.getElementById('scaleVal').textContent = scales[id].toFixed(2);
+
+  const xSlider = document.getElementById('xOffsetSlider');
+  xSlider.disabled = false;
+  xSlider.value = xOffsets[id];
+  document.getElementById('xOffsetVal').textContent = xOffsets[id];
+
+  const ySlider = document.getElementById('yOffsetSlider');
+  ySlider.disabled = false;
+  ySlider.value = yOffsets[id];
+  document.getElementById('yOffsetVal').textContent = yOffsets[id];
+}
+
+document.getElementById('scaleSlider').addEventListener('input', (e) => {
+  if (!selected) return;
+  applyScale(selected, parseFloat(e.target.value));
+});
+
+document.getElementById('xOffsetSlider').addEventListener('input', (e) => {
+  if (!selected) return;
+  xOffsets[selected] = parseInt(e.target.value);
+  document.getElementById('xOffsetVal').textContent = xOffsets[selected];
+  positionSlot(selected);
+  updateOutput();
+});
+
+document.getElementById('yOffsetSlider').addEventListener('input', (e) => {
+  if (!selected) return;
+  yOffsets[selected] = parseInt(e.target.value);
+  document.getElementById('yOffsetVal').textContent = yOffsets[selected];
+  positionSlot(selected);
+  updateOutput();
+});
+
+function setScale(val) {
+  if (!selected) return;
+  applyScale(selected, val);
+  document.getElementById('scaleSlider').value = val;
+}
+
+function applyScale(id, val) {
+  scales[id] = val;
+  document.getElementById('scaleVal').textContent = val.toFixed(2);
+
+  const img = document.getElementById(`img-${id}`);
+  setSizeFromScale(img, id, val);
+
+  positionSlot(id);
+  updateOutput();
+}
+
+function resetPositions() {
+  const arena = document.getElementById('arena');
+  const ids = Object.keys(characters);
+  const arenaW = arena.offsetWidth;
+  const spacing = arenaW / (ids.length + 1);
+
+  ids.forEach((id, i) => {
+    positions[id] = { x: spacing * (i + 1), dragY: 0 };
+    positionSlot(id);
+  });
+}
+
+function updateOutput() {
+  const lines = Object.entries(scales).map(([id, s]) => {
+    const xo = xOffsets[id] || 0;
+    const yo = yOffsets[id] || 0;
+    let line = `${id}: scale=${s.toFixed(2)}`;
+    if (xo !== 0) line += ` xOffset=${xo}`;
+    if (yo !== 0) line += ` yOffset=${yo}`;
+    return line;
+  });
+  document.getElementById('output').textContent = lines.join('\n');
+}
+
+async function copyOutput() {
+  const text = document.getElementById('output').textContent;
+  await navigator.clipboard.writeText(text);
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1500);
+}
+
+init();
+</script>
+</body>
+</html>
