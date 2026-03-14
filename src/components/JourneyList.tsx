@@ -294,7 +294,7 @@ export function JourneyList({ paths, nodes, startingLevel, selectedStep, onSelec
                 padding: "22px 26px",
                 boxShadow: "0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 248, 230, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)",
                 fontFamily: "'Spectral', serif",
-                fontSize: 14,
+                fontSize: 16,
                 color: "#3a3020",
               }}
             >
@@ -344,7 +344,7 @@ export function JourneyList({ paths, nodes, startingLevel, selectedStep, onSelec
                       >
                         {entry.title}
                         {entry.level != null && (
-                          <span style={{ opacity: 0.55, fontSize: 12, marginLeft: 4, fontWeight: 400 }}>
+                          <span style={{ opacity: 0.55, fontSize: 13, marginLeft: 4, fontWeight: 400 }}>
                             (lv {entry.level})
                           </span>
                         )}
@@ -362,7 +362,7 @@ export function JourneyList({ paths, nodes, startingLevel, selectedStep, onSelec
                     >
                       <div
                         style={{
-                          marginLeft: 44,
+                          marginLeft: 0,
                           marginBottom: 4,
                           borderLeft: "1px solid #a8987060",
                           paddingLeft: 10,
@@ -383,7 +383,7 @@ export function JourneyList({ paths, nodes, startingLevel, selectedStep, onSelec
                                 gap: 6,
                                 padding: "2px 0",
                                 cursor: "pointer",
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: 400,
                                 opacity: 0.8,
                                 transition: "opacity 0.15s ease",
