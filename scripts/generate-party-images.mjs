@@ -339,14 +339,32 @@ async function compositeGroup(members, canvas = CANVAS, layoutOpts = {}) {
 // MAIN
 // ---------------------------------------------------------------------------
 
-function getCompositionHash(memberSpecs, characters) {
-  const payload = JSON.stringify(
-    memberSpecs.map((m) => {
-      const charDef = characters?.[m.id] || {};
-      return { id: m.id, variant: m.variant, flip: !!charDef.flip, scale: charDef.scale || 1, yOffset: charDef.yOffset || 0, order: charDef.order ?? 99 };
-    }).sort((a, b) => a.id.localeCompare(b.id))
-  );
-  return createHash("sha256").update(payload).digest("hex").slice(0, 12);
+async function getCompositionHash(memberSpecs, characters) {
+  const hash = createHash("sha256");
+
+  // Include config
+  const config = memberSpecs.map((m) => {
+    const charDef = characters?.[m.id] || {};
+    return { id: m.id, variant: m.variant, flip: !!charDef.flip, scale: charDef.scale || 1, yOffset: charDef.yOffset || 0, order: charDef.order ?? 99 };
+  }).sort((a, b) => a.id.localeCompare(b.id));
+  hash.update(JSON.stringify(config));
+
+  // Include actual file contents so changed images invalidate cache
+  for (const m of config) {
+    const charDef = characters?.[m.id];
+    if (!charDef) continue;
+    const assetRelPath = charDef.assets[m.variant] || charDef.assets[0];
+    if (!assetRelPath) continue;
+    const fullPath = path.join(CHARACTERS_DIR, assetRelPath);
+    try {
+      const buf = await readFile(fullPath);
+      hash.update(buf);
+    } catch {
+      // file missing, hash will differ from any valid composition
+    }
+  }
+
+  return hash.digest("hex").slice(0, 12);
 }
 
 function getGroupAtStep(group, step) {
@@ -409,7 +427,7 @@ async function main() {
       const { members: memberSpecs } = getGroupAtStep(group, step);
       if (!memberSpecs) continue;
 
-      const hash = getCompositionHash(memberSpecs, characters);
+      const hash = await getCompositionHash(memberSpecs, characters);
       if (!compositions.has(hash)) {
         compositions.set(hash, { memberSpecs, groupName, steps: [step] });
       } else {
@@ -500,7 +518,7 @@ async function main() {
         continue;
       }
 
-      const hash = getCompositionHash(memberSpecs, characters);
+      const hash = await getCompositionHash(memberSpecs, characters);
       const filename = generated.get(hash);
       manifest[groupName][step] = {
         image: filename ? `/images/characters/generated/${filename}` : null,
