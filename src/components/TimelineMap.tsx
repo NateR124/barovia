@@ -18,6 +18,7 @@ import { SidePanel } from "./SidePanel";
 import { PartyMarker } from "./PartyMarker";
 import { JourneyList, buildJourneyEntries } from "./JourneyList";
 import { MistBackground } from "./MistBackground";
+import { usePreloadPartyImages, usePreloadNodeImages } from "@/hooks/useImagePreloader";
 import type { GroupManifest } from "@/types/timeline";
 import type { Map as LeafletMap } from "leaflet";
 
@@ -122,9 +123,9 @@ export function TimelineMap() {
 
   // Get the party image for the current step from manifest
   const partyImageSrc = useMemo(() => {
-    if (!manifest?.party) return "/images/characters/Party.png";
+    if (!manifest?.party) return "/images/characters/Party.webp";
     const entry = manifest.party[String(selectedStep)];
-    return entry?.image || "/images/characters/Party.png";
+    return entry?.image || "/images/characters/Party.webp";
   }, [manifest, selectedStep]);
 
   // Get allies info for the current step
@@ -137,7 +138,7 @@ export function TimelineMap() {
     if (!node) return null;
 
     return {
-      image: entry.image || "/images/characters/Allies.png",
+      image: entry.image || "/images/characters/Allies.webp",
       coordinates: node.coordinates,
       nodeId: node.id,
     };
@@ -186,6 +187,16 @@ export function TimelineMap() {
     return ids;
   }, [selectedStep, journeyEntries]);
 
+  // Preload all party/allies images once manifest is available
+  usePreloadPartyImages(manifest);
+
+  // Preload node scene images for current + adjacent steps
+  const nodeMap = useMemo(() => {
+    if (!data) return new Map();
+    return new Map(data.nodes.map((n) => [n.id, n]));
+  }, [data]);
+  usePreloadNodeImages(journeyEntries, selectedStep, nodeMap);
+
   useEffect(() => {
     if (selectedNode) {
       flyToNode(selectedNode.coordinates);
@@ -203,7 +214,7 @@ export function TimelineMap() {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-[#0d0d0d]">
         <img
-          src="/images/mobile/mobile.png"
+          src="/images/mobile/mobile.webp"
           alt="Curse of Strahd"
           style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
         />
@@ -251,7 +262,7 @@ export function TimelineMap() {
       >
         <MapRefSetter mapRef={mapRef} />
         <CoordinatePicker />
-        <ImageOverlay url="/images/map/barovia-map.png" bounds={IMAGE_BOUNDS} />
+        <ImageOverlay url="/images/map/barovia-map.webp" bounds={IMAGE_BOUNDS} />
 
         {data.paths.slice(0, visiblePathCount).map((path, i) => (
           <TravelPath

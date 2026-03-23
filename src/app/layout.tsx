@@ -11,7 +11,7 @@ export const metadata: Metadata = {
       "An interactive map tracking the party's journey through Barovia.",
     images: [
       {
-        url: "/images/nodes/van-richtens-tower-2.png",
+        url: "/images/nodes/van-richtens-tower-2.webp",
         width: 1200,
         height: 630,
         alt: "Curse of Strahd — Campaign Timeline",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Curse of Strahd — Campaign Timeline",
     description:
       "An interactive map tracking the party's journey through Barovia.",
-    images: ["/images/nodes/van-richtens-tower-2.png"],
+    images: ["/images/nodes/van-richtens-tower-2.webp"],
   },
 };
 

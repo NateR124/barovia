@@ -20,7 +20,7 @@ const alliesIcon = L.divIcon({
       filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
     ">
       <img
-        src="/images/characters/Allies.png"
+        src="/images/characters/Allies.webp"
         alt="Allies location"
         style="width: 100%; height: 100%; object-fit: contain;"
       />

@@ -43,7 +43,7 @@ function createGroupIcon(
 export function PartyMarker({
   coordinates,
   facingLeft,
-  imageSrc = "/images/characters/Party.png",
+  imageSrc = "/images/characters/Party.webp",
   label = "The Party",
   size = 380,
 }: PartyMarkerProps) {

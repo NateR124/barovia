@@ -338,7 +338,7 @@ async function compositeGroup(members, overrideCanvas = null, layoutOpts = {}) {
     },
   })
     .composite(compositeOps)
-    .png()
+    .webp({ lossless: true })
     .toBuffer();
 }
 
@@ -451,11 +451,11 @@ async function main() {
 
   // Clean up ALL old generated images before generating new ones
   const existingFiles = await readdir(OUTPUT_DIR);
-  const keepFiles = new Set(["manifest.json", "_test_all_characters.png"]);
+  const keepFiles = new Set(["manifest.json", "_test_all_characters.png", "_test_all_characters.webp"]);
   const neededFiles = new Set([...compositions.keys()].map(
     (hash) => {
       const comp = compositions.get(hash);
-      return `${comp.groupName}_${hash}.png`;
+      return `${comp.groupName}_${hash}.webp`;
     }
   ));
   let cleaned = 0;
@@ -472,7 +472,7 @@ async function main() {
   const generated = new Map(); // hash -> filename
 
   for (const [hash, { memberSpecs, groupName }] of compositions) {
-    const filename = `${groupName}_${hash}.png`;
+    const filename = `${groupName}_${hash}.webp`;
     const outputPath = path.join(OUTPUT_DIR, filename);
 
     // Check if already exists (skip if --force)
@@ -549,7 +549,7 @@ async function main() {
       const hash = await getCompositionHash(memberSpecs, characters);
       const filename = generated.get(hash);
       manifest[groupName][step] = {
-        image: filename ? `/images/characters/generated/${filename}` : null,
+        image: filename ? `/images/characters/generated/${filename}` : null,  // .webp
         location: location || null,
       };
     }
@@ -668,12 +668,12 @@ async function main() {
       },
     })
       .composite(compositeOps)
-      .png()
+      .webp({ lossless: true })
       .toBuffer();
 
-    const testPath = path.join(OUTPUT_DIR, "_test_all_characters.png");
+    const testPath = path.join(OUTPUT_DIR, "_test_all_characters.webp");
     await writeFile(testPath, testResult);
-    console.log(`  ✓ _test_all_characters.png (${numChars} characters — control + ${variantResults.length} variants)`);
+    console.log(`  ✓ _test_all_characters.webp (${numChars} characters — control + ${variantResults.length} variants)`);
   }
 
   console.log("Done!\n");
